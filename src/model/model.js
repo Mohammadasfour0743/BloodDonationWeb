@@ -19,6 +19,8 @@ const model = {
   },
 };
 
+export { model };
+
 /*
 request: {
     id: string;
