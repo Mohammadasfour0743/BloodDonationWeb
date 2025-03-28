@@ -10,8 +10,26 @@ export function RequestDialogueView({ closeEventHandler }) {
         <div className={'row header'}>
           <h1>Request a Donation</h1>
         </div>
-        <div className="row">
-          <h2>Hospital Details</h2>
+        <div className={'column inputContainer'}>
+          <div className="row inputRow subheaderContainer">
+            <h2 className="subheader">Hospital Details</h2>
+          </div>
+          <div className="row inputRow">
+            <label>Name</label>
+            <input disabled={true} type="text" className="formInput" />
+          </div>
+          <div className="row inputRow">
+            <label>Location</label>
+            <input disabled={true} type="text" className="formInput" />
+          </div>
+          <div className="row inputRow">
+            <label>Email</label>
+            <input disabled={true} type="text" className="formInput" />
+          </div>
+          <div className="row inputRow">
+            <label>Phone</label>
+            <input disabled={true} type="text" className="formInput" value="+46 11 111 111" />
+          </div>
         </div>
       </div>
       <div className={'requestFormOverlay'} onClick={closeEventHandler} />
