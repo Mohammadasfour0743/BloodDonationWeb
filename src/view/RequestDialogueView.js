@@ -73,7 +73,9 @@ export function RequestDialogueView({ closeEventHandler }) {
           </div>
         </div>
         <div className="formSubmitContainer">
-          <button className="formSubmit">Submit</button>
+          <button className="formSubmit" onClick={closeEventHandler}>
+            Submit
+          </button>
         </div>
       </div>
 
