@@ -1,11 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-	<React.StrictMode>
-		<App />
-	</React.StrictMode>
-);
+import LoginPage from './routes/LoginPage.js';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import HospitalProfile from './routes/HospitalProfile.js';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <LoginPage />,
+  },
+  {
+    path: '/hospitalprofile',
+    element: <HospitalProfile />,
+  },
+]);
+
+const root = document.getElementById('root');
+
+ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
