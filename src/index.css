@@ -84,6 +84,10 @@ body {
   background-color: var(--Secondary-color);
 }
 
+.closeWindow{
+  cursor: pointer;
+}
+
 .row{
   display: flex;
   justify-content: center;

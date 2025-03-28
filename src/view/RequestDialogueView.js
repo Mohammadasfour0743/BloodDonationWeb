@@ -5,7 +5,7 @@ export function RequestDialogueView({ closeEventHandler }) {
     <div className={'requestFormContainer'}>
       <div className={'requestForm'}>
         <div className="topBar">
-          <IoClose size={21} />
+          <IoClose size={21} onClick={closeEventHandler} className={'closeWindow'} />
         </div>
         <div className={'row header'}>
           <h1>Request a Donation</h1>
