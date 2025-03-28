@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import LoginPage from './routes/LoginPage.js';
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import HospitalProfile from './routes/HospitalProfile.js';
