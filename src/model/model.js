@@ -27,6 +27,8 @@ request: {
     hospitalId: string;
     urgency: number;
     bloodType: string;
+    amount: number;
+    description: string;
 }
 
 hospital: {
