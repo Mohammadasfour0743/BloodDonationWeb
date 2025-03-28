@@ -13,11 +13,11 @@ const reactiveModel = observable(model);
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage model={model} />,
+    element: <LoginPage model={reactiveModel} />,
   },
   {
     path: '/hospitalprofile',
-    element: <HospitalProfile model={model} />,
+    element: <HospitalProfile model={reactiveModel} />,
   },
 ]);
 
