@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { connectToPersistence, saveModelToFirestoreACB } from './firebaseModel.js';
+import { saveModel } from './firebaseModel.js';
 import LoginPage from './routes/LoginPage.js';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -29,4 +29,6 @@ console.log(model);
 
 // Connect to Firestore
 /* connectToPersistence(model); */
-saveModelToFirestoreACB(model);
+//saveModelToFirestoreACB(model);
+
+saveModel(model);
