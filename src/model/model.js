@@ -1,6 +1,12 @@
 const model = {
+  username: "hospital234",
+  location: "Stockholm",
   requests: [],
   hospitals: [],
+
+  setName(name){
+    this.username = name
+  },
 
   getHospital(id) {
     return this.hospitals.find((hospital) => hospital.id === id) ?? null;
