@@ -381,7 +381,7 @@ body {
   align-items: center;
   gap: 10px;
   background-color: #D3C2C2;
-  padding: 30px 20px;
+  padding: 35px 20px;
   width: 100%;
   border-radius: 20px;
 }
@@ -454,6 +454,9 @@ body {
 }
 
 .current-request-item .top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   position: absolute;
   top: 10px;
   left: 10px;
