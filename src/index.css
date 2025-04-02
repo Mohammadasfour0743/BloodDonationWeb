@@ -1,11 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  font-family:  "Roboto";
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+}
+
+
 body {
   margin: 0;
-  background-color: var(--primary-color);
+  background-color: #FFFFFF;
 }
 
 
 :root {
-  --primary-color: #870000;
+  --primary-color: #780000;
+  --Secondary-color: #b47f7f;
 }
 
 .button{
@@ -17,7 +30,6 @@ body {
 .button:hover{
   transition: 0.3s;
   opacity: 0.7;
-  
   cursor: pointer;
 }
 
@@ -29,3 +41,441 @@ body {
   height: 100vh;
 }
 
+.requestDialogueButton{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  
+}
+
+.requestFormContainer{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+}
+
+.requestFormOverlay{
+  position: absolute;
+  background-color: rgba(0,0,0,0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.requestForm{
+  position: absolute;
+  z-index: 11;
+  width: 500px;
+  background-color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  border-radius: 10px;
+}
+
+.topBar{
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding: 10px;
+  background-color: var(--Secondary-color);
+}
+
+.closeWindow{
+  cursor: pointer;
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.requestForm .header{
+  color: var(--primary-color);
+  font-weight: 800;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formInput {
+  background-color: #D9D9D9;
+  border-radius: 13px;
+  width: 70%;
+  outline: none;
+  border: none;
+  padding: 10px;
+  
+}
+
+.inputRow {
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.inputContainer {
+  padding: 15px;
+}
+
+.subheaderContainer {
+  justify-content: center !important;
+  margin: 10px;
+}
+
+.subheaderContainer h2 {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+
+.radio-group {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* ⬅️ 4 columns now */
+  gap: 1rem;
+  max-width: 600px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radio-option input[type="radio"] {
+  display: none;
+}
+
+.custom-radio {
+  width: 20px;
+  height: 20px;
+  background-color: #D9D9D9; /* default background */
+  border-radius: 50%;
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.radio-option:hover .custom-radio::before,
+.radio-option input[type="radio"]:checked + .custom-radio::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px; /* slightly larger inner circle */
+  height: 14px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radio-option:hover .custom-radio::before {
+  background-color: #AD7878;
+}
+
+.radio-option input[type="radio"]:checked + .custom-radio::before {
+  background-color: #780000;
+}
+
+.radio-group-container {
+  justify-content: flex-start !important;
+  gap: 15px !important;
+}
+
+
+.custom-checkbox {
+  display: none;
+}
+
+.checkbox-label {
+  margin-left: 29px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: #d9d9d9;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-checkbox:checked + .checkbox-label {
+  background-color: #780000;
+}
+
+.checkbox-label::after {
+  content: "";
+  position: absolute;
+  left: 8px; /* moved 1px to the right */
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.custom-checkbox:checked + .checkbox-label::after {
+  opacity: 1;
+}
+
+.checkbox-container {
+  justify-content: flex-start !important;
+}
+
+.amountRow {
+  justify-content: flex-start !important;
+}
+
+.amountInput {
+  margin-left: 11px;
+  width: 80px;
+}
+
+.textarea {
+  background-color: #D9D9D9;
+  border-radius: 12px;
+  border: 0;
+  min-height: 50px;
+  resize: vertical;
+  max-height: 150px;
+}
+
+.formSubmitContainer {
+  margin: 0 15px 15px 15px;
+}
+
+.formSubmit {
+  background-color: var(--Secondary-color);
+  padding: 12px;
+  color: white;
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mainHeader {
+  padding: 8px;
+  background-color: #780000;
+  margin: 0;
+}
+
+.hero {
+  background-color: #9A4040;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 45px 0;
+}
+
+.hero-content {
+  width: 1000px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-content h1 {
+  font-size: 54px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px #8B8B8B;
+}
+
+.hero-content h2 {
+  font-weight: normal;
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.hero-content button {
+  padding:8px;
+  background-color: #D3C2C2;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hero-content button:hover {
+  background-color: #D8D8D8;
+  transition: 0.3s;
+}
+
+.contact {
+  padding: 12px;
+  background-color: #B47F7F;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+}
+
+.contact .separator {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background-color: black;
+}
+
+.current-requests {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.current-requests-content {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+
+.current-requests h1 {
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 28px;
+}
+
+.current-request-item {
+  border-radius: 20px;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  background-color: #e9e9e9;
+
+}
+
+.current-request-item-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #D3C2C2;
+  padding: 35px 20px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.current-request-item-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  margin: 0;
+}
+
+.current-request-item-header .separator {
+  width: 6px;
+  height: 6px;
+  border-radius: 20px;
+  background-color: black;
+}
+
+.current-request-item h2 {
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.current-request-item .urgency {
+  font-size: 16px;
+}
+
+.current-request-item .id {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.current-requests button {
+  padding: 10px 20px;
+  background-color: #780000;
+  border-radius: 200px;
+  font-size: 20px;
+  color: white;
+  align-self: flex-end;
+  cursor: pointer
+}
+
+.current-request-item .description {
+  align-self: start;
+  padding: 20px;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.current-request-item .description p {
+  color: #4b4b4b;
+  margin-top: 5px;
+}
+
+.current-request-item .arrow {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.current-request-item .remove-request {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: -40px;
+}
+
+.current-request-item .top-left {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.current-request-item .responses {
+  background-color: #B47F7F;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.current-request-item .urgent-box {
+  padding: 6px;
+  font-size: 16px;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #9A4040;
+}
