@@ -17,6 +17,18 @@ const model = {
   getRequests() {
     return this.requests.map((request) => this.getRequest(request.id));
   },
+  addRequest(request) {
+    this.requests = [...this.requests, request];
+  },
+  addHospital(hospital) {
+    this.hospitals = [...this.hospitals, hospital];
+  },
+  setRequests(requests) {
+    this.requests = requests;
+  },
+  setHospitals(hospitals) {
+    this.hospitals = hospitals;
+  },
 };
 
 export { model };
