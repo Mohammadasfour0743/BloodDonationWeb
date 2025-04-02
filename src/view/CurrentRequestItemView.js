@@ -7,7 +7,8 @@ export function CurrentRequestItemView({ request, idx, isOpen, setOpen, removeIt
     setOpen((state) => !state);
   }
 
-  function onRemovePressed() {
+  function onRemovePressed(event) {
+    event.stopPropagation();
     removeItem(request.id);
   }
 
