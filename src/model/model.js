@@ -3,10 +3,10 @@ const model = {
     {
       id: '1',
       hospitalId: '1',
-      urgency: 1,
+      urgency: 0,
       bloodType: 'A+',
       amount: 10,
-      description: '',
+      description: 'Blablabla test description yippie',
     },
     {
       id: '2',

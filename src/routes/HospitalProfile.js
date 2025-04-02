@@ -3,6 +3,8 @@ import { RequestDialogue } from '../presenter/RequestDialogueButton';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { MdOutlineModeEdit } from 'react-icons/md';
 import { CurrentRequests } from '../presenter/CurrentRequests';
+import { MdOutlineMailOutline } from 'react-icons/md';
+import { MdOutlineLocalPhone } from 'react-icons/md';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
   return (
@@ -27,8 +29,10 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
       <div className="contact">
         <p>Contact</p>
         <div className="separator" />
+        <MdOutlineMailOutline style={{ marginRight: -12 }} />
         <p>randomemail@something.com</p>
         <div className="separator" />
+        <MdOutlineLocalPhone style={{ marginRight: -12 }} />
         <p>0248530368</p>
       </div>
       <CurrentRequests model={model} />

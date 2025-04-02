@@ -367,14 +367,22 @@ body {
 
 .current-request-item {
   border-radius: 20px;
-  background-color: #D3C2C2;
-  padding: 40px 20px;
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  background-color: #e9e9e9;
+
+}
+
+.current-request-item-content {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   align-items: center;
-  position: relative;
-  width: 100%
+  gap: 10px;
+  background-color: #D3C2C2;
+  padding: 40px 20px;
+  width: 100%;
+  border-radius: 20px;
 }
 
 .current-request-item-header {
@@ -383,6 +391,7 @@ body {
   flex-direction: row;
   align-items: center;
   gap: 30px;
+  margin: 0;
 }
 
 .current-request-item-header .separator {
@@ -404,8 +413,8 @@ body {
 
 .current-request-item .id {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
 }
 
 .current-requests button {
@@ -416,4 +425,53 @@ body {
   color: white;
   align-self: flex-end;
   cursor: pointer
+}
+
+.current-request-item .description {
+  align-self: start;
+  padding: 20px;
+  margin: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.current-request-item .description p {
+  color: #4b4b4b;
+  margin-top: 5px;
+}
+
+.current-request-item .arrow {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+}
+
+.current-request-item .remove-request {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: -40px;
+}
+
+.current-request-item .top-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.current-request-item .responses {
+  background-color: #B47F7F;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  padding: 6px;
+}
+
+.current-request-item .urgent-box {
+  padding: 6px;
+  font-size: 16px;
+  color: white;
+  width: fit-content;
+  border-radius: 5px;
+  text-transform: uppercase;
+  background-color: #9A4040;
 }
