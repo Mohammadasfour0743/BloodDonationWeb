@@ -289,7 +289,7 @@ body {
 }
 
 .hero-content {
-  width: 1200px;
+  width: 1000px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -297,7 +297,7 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 64px;
+  font-size: 54px;
   font-weight: bold;
   text-transform: uppercase;
   text-shadow: 1px 1px 2px #8B8B8B;
@@ -362,7 +362,7 @@ body {
 .current-requests h1 {
   text-transform: uppercase;
   font-weight: normal;
-  font-size: 32px;
+  font-size: 28px;
 }
 
 .current-request-item {
@@ -380,7 +380,7 @@ body {
   align-items: center;
   gap: 10px;
   background-color: #D3C2C2;
-  padding: 40px 20px;
+  padding: 30px 20px;
   width: 100%;
   border-radius: 20px;
 }
@@ -395,15 +395,15 @@ body {
 }
 
 .current-request-item-header .separator {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 20px;
   background-color: black;
 }
 
 .current-request-item h2 {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 
