@@ -8,11 +8,32 @@ import { saveRequests } from "./firebaseModel";
   
   request: {
       id: "",
-      urgency: "",
-      bloodType: "",
-      amount: "",
-      description: "",
+      hospitalid: "smtg",
+      urgency: "hj",
+      bloodType: "gh",
+      amount: "gh",
+      description: "hj",
   },
+
+  setId(newId) {
+    this.request.id = newId;
+},
+
+setUrgency(newUrgency) {
+    this.request.urgency = newUrgency;
+},
+
+setBloodType(newBloodType) {
+    this.request.bloodType = newBloodType;
+},
+
+setAmount(newAmount) {
+    this.request.amount = newAmount;
+},
+
+setDescription(newDescription) {
+    this.description = newDescription;
+},
 
   getHospital(id) {
     return this.hospitals.find((hospital) => hospital.id === id) ?? null;

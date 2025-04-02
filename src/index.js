@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { getModel, persistFirebase } from './model/firebaseModel.js';
+import { getModel, persistFirebase, saveRequests } from './model/firebaseModel.js';
 import LoginPage from './routes/LoginPage.js';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -28,7 +28,19 @@ const root = document.getElementById('root');
 //getModel();
 
 persistFirebase(reactiveModel, reaction); 
+
 /* getModel(); */
+
+/* const testRequest = {
+  id: "test123",
+  urgency: "high",
+  hospitalId: "edgd",
+  bloodType: "O+",
+  amount: 2,
+  description: "Need urgent blood donation"
+};
+saveRequests(testRequest); */
+
 
 ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
 export { reactiveModel };

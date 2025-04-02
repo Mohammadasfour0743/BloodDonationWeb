@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, getFirestore } from 'firebase/firestore';
+import { doc, getDoc, setDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig.js';
 import { model } from './model.js';
@@ -6,8 +6,9 @@ import { model } from './model.js';
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
+const COLLECTION2= 'requests';
 const docRef = doc(db, COLLECTION, 'hospital1');
-const docRef2 = doc(db, COLLECTION, 'hospital1/requests/request')
+/* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
 
 export function persistFirebase(model, watchF) {
   function dataChange() {
@@ -49,24 +50,21 @@ export function getModel() {
     });
 }
 
-export function saveRequests(){
-      setDoc(
-        docRef2,
-        {
-          requestid: model.request.requestid,
-          urgency: model.request.urgency,
-          bloodtype: model.request.bloodtype,
-          amount: model.request.amount,
-          description: model.request.description,
-        },
-        {
-          merge: true,
-        }
-      ).catch((error) => {
-        console.error(error);
-      });
-    
-      /* watchF(dataChange, persistFirebase); */
+export async function saveRequests(request) {
+  try {
+    const docRef = await addDoc(collection(db, COLLECTION2), {
+      /* id: request.id,  */
+      hospitalId: request.hospitalId,
+      urgency: request.urgency,
+      bloodType: request.bloodType,
+      amount: request.amount,
+      description: request.description,
+    });
+
+    console.log("Request successfully saved with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error saving request:", error);
+  }
 }
 
 export function getRequests(){
