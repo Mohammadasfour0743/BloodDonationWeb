@@ -18,6 +18,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
       description: notes,
       amount,
     });
+    closeEventHandler();
   }
 
   return (
