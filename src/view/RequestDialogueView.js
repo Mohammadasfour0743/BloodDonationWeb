@@ -10,8 +10,9 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
   const [amount, setAmount] = useState(1);
 
   function submitForm() {
+    const id = crypto.randomUUID();
     addRequest({
-      id: '123123123',
+      id,
       hospitalName,
       bloodType,
       urgency: isUrgent,
