@@ -58,7 +58,9 @@ export async function saveRequests(request) {
       urgency: request.urgency,
       bloodType: request.bloodType,
       amount: request.amount,
-      description: request.description,
+      description: request.description, 
+      email: request.email,
+      phone:request.phone
     });
     console.log("Request successfully saved with ID:", request.id);
   } catch (error) {
