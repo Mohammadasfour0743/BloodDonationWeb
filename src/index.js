@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { persistFirebase } from './model/firebaseModel.js';
+import { getModel, persistFirebase } from './model/firebaseModel.js';
 import LoginPage from './routes/LoginPage.js';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -27,7 +27,8 @@ const root = document.getElementById('root');
 
 //getModel();
 
-persistFirebase(reactiveModel, reaction);
+persistFirebase(reactiveModel, reaction); 
+/* getModel(); */
 
 ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
 export { reactiveModel };
