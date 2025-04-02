@@ -41,6 +41,7 @@ export function getModel() {
         model.name = data.name;
       }
       console.log(model.username, model.location);
+      console.log()
     })
     .catch((error) => {
       console.error(error);
