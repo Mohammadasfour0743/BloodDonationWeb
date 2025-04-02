@@ -10,24 +10,20 @@ const docRef = doc(db, COLLECTION, "hospital1")
 
 export function persistFirebase(model, watchF){
     function dataChange(){
-        return [model.hospitals.id, model.hospitals.name, model.hospitals.location, model.hospitals.contact.email, model.hospitals.contact.phone]
+        return [model.hospitals.id, model.hospitals.name, model.hospitals.location]
     }
 
-    function saveModel(){
         setDoc(docRef, {
-            id: model.hospitals.id,
-            name: model.hospitals.name,
-            location: model.hospitals.location,
-            email: model.hospitals.contact.email,
-            phone: model.hospitals.contact.phone,
+            id: model.id,
+            name: model.name,
+            location: model.location,
         },{
             merge: true
         }).catch((error) => {
             console.error(error)
         })
-    }
 
-    watchF(dataChange, saveModel);
+    watchF(dataChange, persistFirebase);
 
     /*function getModel(){
         getDoc(docRef)

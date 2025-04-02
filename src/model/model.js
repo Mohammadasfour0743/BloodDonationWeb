@@ -1,23 +1,10 @@
  const model = {
-  requests: [],
-  hospitals:[],/*{ 
-    id: "",
-    name: "",
-    location: "",
-    contact: {
-        email: "",
-        phone: "",
-    }*/
-  },
-
   id: "",
-    name: "",
-    location: "",
-    contact: {
-        email: ""
-        phone: ""
-    }
+  name: "",
+  location: "",
 
+  requests: [],
+  hospitals:[],
   getHospital(id) {
     return this.hospitals.find((hospital) => hospital.id === id) ?? null;
   },
