@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
+import { doc, getDoc, setDoc, getFirestore, collection } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../firebaseConfig.js';
 import { model } from './model.js';
