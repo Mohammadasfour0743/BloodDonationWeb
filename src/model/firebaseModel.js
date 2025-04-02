@@ -7,6 +7,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const docRef = doc(db, COLLECTION, 'hospital1');
+const docRef2 = doc(db, COLLECTION, 'hospital1/requests/request')
 
 export function persistFirebase(model, watchF) {
   function dataChange() {
@@ -49,16 +50,14 @@ export function getModel() {
 }
 
 export function saveRequests(){
-    function dataChange() {
-        return [model.id, model.name, model.location];
-      }
-    
       setDoc(
-        docRef,
+        docRef2,
         {
-          id: model.id,
-          name: model.name,
-          location: model.location,
+          requestid: model.request.requestid,
+          urgency: model.request.urgency,
+          bloodtype: model.request.bloodtype,
+          amount: model.request.amount,
+          description: model.request.description,
         },
         {
           merge: true,

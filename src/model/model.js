@@ -1,10 +1,19 @@
+import { saveRequests } from "./firebaseModel";
+
  const model = {
+
   id: "",
   name: "",
   location: "",
+  
+  request: {
+      id: "",
+      urgency: "",
+      bloodType: "",
+      amount: "",
+      description: "",
+  },
 
-  requests: [],
-  hospitals:[],
   getHospital(id) {
     return this.hospitals.find((hospital) => hospital.id === id) ?? null;
   },
@@ -22,6 +31,7 @@
   },
   addRequest(request) {
     this.requests = [...this.requests, request];
+    saveRequests(request);
   },
   removeRequest(id) {
     this.requests = this.requests.filter((request) => {
