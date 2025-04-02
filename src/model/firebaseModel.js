@@ -54,13 +54,13 @@ export async function saveRequests(request) {
   try {
     const docRef = doc(collection(db, COLLECTION2), request.id);
     await setDoc(docRef, {
-      hospitalId: request.hospitalId,
+      /* hospitalId: request.hospitalId, */
       urgency: request.urgency,
       bloodType: request.bloodType,
       amount: request.amount,
       description: request.description, 
-      email: request.email,
-      phone:request.phone
+      /* email: request.email,
+      phone:request.phone */
     });
     console.log("Request successfully saved with ID:", request.id);
   } catch (error) {
