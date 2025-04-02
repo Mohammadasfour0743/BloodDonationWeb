@@ -52,16 +52,15 @@ export function getModel() {
 
 export async function saveRequests(request) {
   try {
-    const docRef = await addDoc(collection(db, COLLECTION2), {
-      /* id: request.id,  */
+    const docRef = doc(collection(db, COLLECTION2), request.id);
+    await setDoc(docRef, {
       hospitalId: request.hospitalId,
       urgency: request.urgency,
       bloodType: request.bloodType,
       amount: request.amount,
       description: request.description,
     });
-
-    console.log("Request successfully saved with ID:", docRef.id);
+    console.log("Request successfully saved with ID:", request.id);
   } catch (error) {
     console.error("Error saving request:", error);
   }
