@@ -20,6 +20,11 @@ const model = {
   addRequest(request) {
     this.requests = [...this.requests, request];
   },
+  removeRequest(id) {
+    this.requests = this.requests.filter((request) => {
+      return request.id !== id;
+    });
+  },
   addHospital(hospital) {
     this.hospitals = [...this.hospitals, hospital];
   },
