@@ -8,14 +8,18 @@ const db = getFirestore(app)
 const COLLECTION = "hospitals"
 const docRef = doc(db, COLLECTION, "hospital1")
 
-export function persistFirebasd(model, watchF){
+export function persistFirebase(model, watchF){
     function dataChange(){
-        return [model.username]
+        return [model.hospitals.id, model.hospitals.name, model.hospitals.location, model.hospitals.contact.email, model.hospitals.contact.phone]
     }
 
     function saveModel(){
         setDoc(docRef, {
-            hospitaLocation: model.username,
+            id: model.hospitals.id,
+            name: model.hospitals.name,
+            location: model.hospitals.location,
+            email: model.hospitals.contact.email,
+            phone: model.hospitals.contact.phone,
         },{
             merge: true
         }).catch((error) => {
