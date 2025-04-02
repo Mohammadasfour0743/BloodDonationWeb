@@ -1,6 +1,33 @@
 const model = {
-  requests: [],
-  hospitals: [],
+  requests: [
+    {
+      id: '1',
+      hospitalId: '1',
+      urgency: 0,
+      bloodType: 'A+',
+      amount: 10,
+      description: 'Blablabla test description yippie',
+    },
+    {
+      id: '2',
+      hospitalId: '1',
+      urgency: 1,
+      bloodType: 'B+',
+      amount: 2,
+      description: '',
+    },
+  ],
+  hospitals: [
+    {
+      id: '1',
+      name: 'Test hospital',
+      location: 'location random',
+      contact: {
+        email: 'email@email.com',
+        phone: 'phonee',
+      },
+    },
+  ],
 
   getHospital(id) {
     return this.hospitals.find((hospital) => hospital.id === id) ?? null;
@@ -8,7 +35,7 @@ const model = {
   getRequest(id) {
     const req = this.requests.find((request) => request.id === id);
     if (!req) return null;
-    const hospital = this.getHospital(req.hospitalid);
+    const hospital = this.getHospital(req.hospitalId);
     return {
       ...req,
       hospital: hospital,
