@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { getModel, saveModel } from './model/firebaseModel.js';
+import { getModel, persistFirebasd, saveModel } from './model/firebaseModel.js';
 import LoginPage from './routes/LoginPage.js';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import HospitalProfile from './routes/HospitalProfile.js';
-import { configure, observable } from 'mobx';
+import { configure, observable, reaction } from 'mobx';
 import { model } from './model/model.js';
 
 configure({ enforceActions: 'always' });
@@ -27,7 +27,7 @@ const root = document.getElementById('root');
 
 //getModel();
 
-saveModel(reactiveModel);
+persistFirebasd(reactiveModel, reaction);
 
 ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
 export { reactiveModel };

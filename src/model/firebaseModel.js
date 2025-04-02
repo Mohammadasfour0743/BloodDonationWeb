@@ -8,28 +8,35 @@ const db = getFirestore(app)
 const COLLECTION = "hospitals"
 const docRef = doc(db, COLLECTION, "hospital1")
 
-export function saveModel(model){
-    setDoc(docRef, {
-        hospitalName: model.username,
-        hospitalLocation: model.location,
-    },{
-        merge: true
-    }).catch((error) => {
-        console.error(error)
-    })
-}
+export function persistFirebasd(model, watchF){
+    function dataChange(){
+        return [model.username]
+    }
 
-export function getModel(){
-    getDoc(docRef)
-        .then((snapshot) => {
-            const data = snapshot.exists ? snapshot.data() : {}
-            console.log("Raw data from Firestore:", data);
-            if (data) {
-                model.username = data.hospitalName
-                model.location = data.hospitalLocation
-            }
-        console.log(model.username, model.location)
+    function saveModel(){
+        setDoc(docRef, {
+            hospitaLocation: model.username,
+        },{
+            merge: true
         }).catch((error) => {
             console.error(error)
         })
+    }
+
+    watchF(dataChange, saveModel);
+
+    /*function getModel(){
+        getDoc(docRef)
+            .then((snapshot) => {
+                const data = snapshot.exists ? snapshot.data() : {}
+                console.log("Raw data from Firestore:", data);
+                if (data) {
+                    model.username = data.hospitalName
+                    model.location = data.hospitalLocation
+                }
+            console.log(model.username, model.location)
+            }).catch((error) => {
+                console.error(error)
+            })
+    }*/
 }
