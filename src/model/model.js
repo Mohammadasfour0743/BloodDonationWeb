@@ -29,6 +29,30 @@ const model = {
   setHospitals(hospitals) {
     this.hospitals = hospitals;
   },
+  updateHospital(id, hospitalFields) {
+    this.hospitals = this.hospitals.map((hospital) => {
+      if (hospital.id === id) {
+        return {
+          ...hospital,
+          hospitalFields,
+        };
+      } else {
+        return hospital;
+      }
+    });
+  },
+  updateRequest(id, requestFields) {
+    this.requests = this.requests.map((request) => {
+      if (request.id === id) {
+        return {
+          ...request,
+          requestFields,
+        };
+      } else {
+        return request;
+      }
+    });
+  },
 };
 
 export { model };
