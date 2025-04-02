@@ -16,7 +16,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <div className="hero-content">
           <div>
             <h1>Hospital Profile</h1>
-            <h2>Located in: some street 284, 2349, randcity</h2>
+            <h2>Located in: {model.location}</h2>
           </div>
           <div>
             <button>
@@ -30,13 +30,13 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <p>Contact</p>
         <div className="separator" />
         <MdOutlineMailOutline style={{ marginRight: -12 }} />
-        <p>randomemail@something.com</p>
+        <p>{model.contact.email}</p>
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
-        <p>0248530368</p>
+        <p>{model.contact.phone}</p>
       </div>
       <CurrentRequests model={model} />
-      <RequestDialogue />
+      <RequestDialogue model={model} />
     </div>
   );
 });

@@ -1,8 +1,9 @@
 import { RequestDialogueButtonView } from '../view/RequestDialogueButtonView';
 import { useState } from 'react';
 import { RequestDialogueView } from '../view/RequestDialogueView';
+import { observer } from 'mobx-react-lite';
 
-export function RequestDialogue() {
+export const RequestDialogue = observer(function RequestDialogue({ model }) {
   const [dialogueOpen, setDialogueOpen] = useState(false);
   function onRequestDialogueButtonClicked() {
     setDialogueOpen(true);
@@ -13,8 +14,16 @@ export function RequestDialogue() {
   }
 
   if (dialogueOpen) {
-    return <RequestDialogueView closeEventHandler={onOverlayClick} />;
+    return (
+      <RequestDialogueView
+        closeEventHandler={onOverlayClick}
+        hospitalName={model.name}
+        hospitalEmail={model.contact.email}
+        hospitalLocation={model.location}
+        addRequest={(req) => model.addRequest(req)}
+      />
+    );
   }
 
   return <RequestDialogueButtonView clickEventHandler={onRequestDialogueButtonClicked} />;
-}
+});

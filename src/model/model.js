@@ -1,71 +1,41 @@
-/* import { saveRequests } from "./firebaseModel";
-
- const model = {
-
-  id: "",
-  name: "",
-  location: "",
-  
+const model = {
+  id: 'hospitalId',
+  location: 'Test location',
+  name: 'Hospital 1',
+  contact: {
+    email: 'hospital@email.com',
+    phone: '+46 20 123 4567',
+  },
   requests: [
     {
-      id: 3,
-      hospitalId: "St Joseph's",
+      id: '1',
+      hospitalName: 'Hospital 1',
       urgency: true,
-      bloodType: "B",
-      location: "bangladesh",
-      amount: "2 units",
-      email: "randomemail@something.com",
-      phoneNumber: "1000202879",
-      description: "aaabababba",
-    },
-
-    {
-      id: 4,
-      hospitalId: "St Joseph's",
-      urgency: false,
-      bloodType: "B",
-      location: "hungary",
-      amount: "2 units",
-      email: "randomemail@something.com",
-      phoneNumber: "1000202879",
-      description: " We have chosen to display the distribution of the white blood cell count (WBC) of patients by using a histogram with an X-axis displaying WBC (thousands) per microliter of blood and Y-axis representing the number of patients who recorded a specific range of WBC. We believed this was a good choice as it clearly links the WBC to a quantity of patients, and by looking at the height of the WBC bars and matching them with the corresponding Y-axis value, doctors can determine the most common ranges and identify any unusual values in the population in the future, with the most common WBC range being between 0-25 with approximately 85% of all patients falling into this range as seen in figure 1.",
+      bloodType: 'A+',
+      amount: 10,
+      description: 'Description',
     },
   ],
 
-  setId(newId) {
-    this.request.id = newId;
-},
-
-setUrgency(newUrgency) {
-    this.request.urgency = newUrgency;
-},
-
-setBloodType(newBloodType) {
-    this.request.bloodType = newBloodType;
-},
-
-setAmount(newAmount) {
-    this.request.amount = newAmount;
-},
-
-setDescription(newDescription) {
-    this.description = newDescription;
-},
-
-  getHospital(id) {
-    return this.hospitals.find((hospital) => hospital.id === id) ?? null;
+  setId(id) {
+    this.id = id;
   },
-  getRequest(id) {
-    const req = this.requests.find((request) => request.id === id);
-    if (!req) return null;
-    const hospital = this.getHospital(req.hospitalId);
-    return {
-      ...req,
-      hospital: hospital,
-    };
+  setLocation(location) {
+    this.location = location;
   },
-  getRequests() {
-    return this.requests.map((request) => this.getRequest(request.id));
+  setName(name) {
+    this.name = name;
+  },
+  addRequest(request) {
+    this.requests = [request, ...this.requests];
+  },
+  removeRequest(id) {
+    this.requests = this.requests.filter((request) => {
+      return request.id !== id;
+    });
+  },
+  setRequests(requests) {
+    this.requests = requests;
   },
 };
 
