@@ -12,7 +12,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
 
   function submitForm() {
     const id = crypto.randomUUID();
-    const req= {
+    const req = {
       id,
       hospitalName,
       bloodType,
@@ -21,6 +21,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
       amount,
       current : true,
     }
+    closeEventHandler();
     addRequest(req);
     saveRequests(req);
   }
