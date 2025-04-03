@@ -7,6 +7,7 @@ export const CurrentRequests = observer(function CurrentRequests({ model }) {
       requests={model.requests.filter((ele) => {
         return ele.current;
       })}
+      hospitalName={model.name}
       deactivateRequest={(id) => model.deactivateRequest(id)}
     />
   );

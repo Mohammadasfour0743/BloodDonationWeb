@@ -3,7 +3,12 @@ import { useState } from 'react';
 import { CurrentRequestItemView } from '../view/CurrentRequestItemView';
 import { removeReq } from '../model/firebaseModel';
 
-export const CurrentRequestItem = observer(function CurrentRequestItem({ deactivateRequest, request, idx }) {
+export const CurrentRequestItem = observer(function CurrentRequestItem({
+  deactivateRequest,
+  request,
+  idx,
+  hospitalName,
+}) {
   const [isOpen, setOpen] = useState(false);
 
   function removeItem(requestId) {
@@ -12,6 +17,13 @@ export const CurrentRequestItem = observer(function CurrentRequestItem({ deactiv
   }
 
   return (
-    <CurrentRequestItemView request={request} idx={idx} isOpen={isOpen} setOpen={setOpen} removeItem={removeItem} />
+    <CurrentRequestItemView
+      request={request}
+      idx={idx}
+      isOpen={isOpen}
+      setOpen={setOpen}
+      removeItem={removeItem}
+      hospitalName={hospitalName}
+    />
   );
 });

@@ -2,7 +2,7 @@ import { FaChevronDown } from 'react-icons/fa';
 import { FaChevronUp } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
-export function CurrentRequestItemView({ request, idx, isOpen, setOpen, removeItem }) {
+export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, setOpen, removeItem }) {
   function onItemPressed() {
     setOpen((state) => !state);
   }
@@ -26,7 +26,7 @@ export function CurrentRequestItemView({ request, idx, isOpen, setOpen, removeIt
       </div>
       <div className="current-request-item-content">
         <div className="current-request-item-header">
-          <h2>{request.hospitalName}</h2>
+          <h2>{hospitalName}</h2>
           <div className="separator" />
           <h2>Blood type {request.bloodType}</h2>
         </div>
