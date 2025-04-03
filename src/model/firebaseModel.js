@@ -9,34 +9,63 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
-const docRef = doc(db, COLLECTION, 'hospital1');
 
-onAuthStateChanged(auth, (username) => {
-  if (username) {
-    username = model.username;
-    console.log('Authenticated user');
-  } else {
-    username = null;
-    console.log('user signed out.');
+onAuthStateChanged(auth, (user) => {
+  try {
+    if (user) {
+      model.username = user.email;
+      console.log('Authenticated user:', user.email);
+    } else {
+      model.username = null;
+      console.log('User signed out.');
+    }
+  } catch (error) {
+    console.error('Error in auth state change:', error.message);
   }
 });
+
+export async function signIn(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    console.log('User signed in:', userCredential.user.email);
+  } catch (error) {
+    console.error('Error signing in:', error.message);
+  }
+}
+
+export async function register(email, password) {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log('User registered:', userCredential.user.email);
+  } catch (error) {
+    console.error('Error registering user:', error.message);
+  }
+}
+
+export async function signOutUser() {
+  try {
+    await signOut(auth);
+    console.log('User signed out.');
+  } catch (error) {
+    console.error('Error signing out:', error.message);
+  }
+}
 
 /* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
 
 export async function saveToFirebase(model, watchF) {
-  if (!username) {
+  if (!model.username) {
     console.error('No username');
     return;
   }
-  //function dataChange() {
-  //return [model.id, model.name, model.location, model.username, model.password, model.phone, model.email];
-  // }
+  function dataChange() {
+    return [model.id, model.name, model.location, model.username, model.phone, model.email];
+  }
   try {
     const docRef = doc(collection(db, COLLECTION), model.username);
     await setDoc(docRef, {
       id: model.id,
       username: model.username,
-      password: model.password,
       name: model.name,
       location: model.location,
       phone: model.phone,
@@ -47,13 +76,15 @@ export async function saveToFirebase(model, watchF) {
     console.error('Error saving request:', error);
   }
 
-  watchF(dataChange, persistFirebase);
+  watchF(dataChange, saveToFirebase);
 }
 
 export function getModel() {
+  const docRef = doc(collection(db, COLLECTION), model.username);
   getDoc(docRef)
     .then((snapshot) => {
       const data = snapshot.exists ? snapshot.data() : {};
+
       console.log('Raw data from Firestore:', data);
       if (data) {
         model.id = data.id;
@@ -103,23 +134,31 @@ export async function removeReq(request) {
 
 export async function fetchreq(model) {
   try {
-    /* const docRef = doc(collection(db, COLLECTION2)); */
     const querySnapshot = await getDocs(collection(db, COLLECTION2));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    model.setRequests(docs);
+    const filteredDocs = docs.filter((doc) => doc.hospitalId === model.hospitalId); // Assuming model.hospitalId is the correct field
+    if (filteredDocs.length > 0) {
+      model.setRequests(filteredDocs);
+    } else {
+      console.log('No data detected');
+    }
   } catch (error) {
     console.error('Error fetching request:', error);
   }
 }
 
 export async function updateDetails(model) {
+  if (!model.phone || !model.email) {
+    console.error('Phone or email is missing');
+    return;
+  }
   try {
-    const docRefDetails = doc(collection(db, COLLECTION), hospitalId);
+    const docRefDetails = doc(collection(db, COLLECTION), model.username);
     await updateDoc(docRefDetails, {
       phone: model.phone,
       email: model.email,
     });
   } catch (error) {
-    console.error('Editing failed');
+    console.error('Editing failed', error.message);
   }
 }
