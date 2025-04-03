@@ -1,12 +1,14 @@
 import { observer } from 'mobx-react-lite';
 import { useState } from 'react';
 import { CurrentRequestItemView } from '../view/CurrentRequestItemView';
+import { removeReq } from '../model/firebaseModel';
 
-export const CurrentRequestItem = observer(function CurrentRequestItem({ removeRequest, request, idx }) {
+export const CurrentRequestItem = observer(function CurrentRequestItem({ deactivateRequest, request, idx }) {
   const [isOpen, setOpen] = useState(false);
 
   function removeItem(requestId) {
-    removeRequest(requestId);
+    deactivateRequest(requestId);
+    removeReq(requestId);
   }
 
   return (

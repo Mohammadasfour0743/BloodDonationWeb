@@ -1,5 +1,5 @@
-import { doc, getDoc, setDoc, getFirestore, collection } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import { model } from './model.js';
 
@@ -8,6 +8,7 @@ const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2= 'requests';
 const docRef = doc(db, COLLECTION, 'hospital1');
+
 /* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
 
 export function persistFirebase(model, watchF) {
@@ -59,6 +60,7 @@ export async function saveRequests(request) {
       bloodType: request.bloodType,
       amount: request.amount,
       description: request.description, 
+      current: request.current
       /* email: request.email,
       phone:request.phone */
     });
@@ -68,6 +70,26 @@ export async function saveRequests(request) {
   }
 }
 
-export function getRequests(){
-
+export async function removeReq(request){
+  try{
+    const docRef = doc(collection(db, COLLECTION2), request);
+    await updateDoc(docRef, {
+      current: false, // Update the 'current' field to false
+    });
+  }catch (error){
+    console.error("Error deleting request:", error);
+  }
 }
+
+export async function fetchreq(model){
+  try{
+    /* const docRef = doc(collection(db, COLLECTION2)); */
+    const querySnapshot = await getDocs(collection(db, COLLECTION2));
+    const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    model.setRequests(docs);
+  
+  }catch (error){
+    console.error("Error fetching request:", error);
+  }
+}
+
