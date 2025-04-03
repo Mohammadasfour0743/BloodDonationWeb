@@ -2,6 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import { model } from './model.js';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+export const auth = getAuth(app);
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -9,12 +11,26 @@ const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
 const docRef = doc(db, COLLECTION, 'hospital1');
 
+onAuthStateChanged(auth, (username) => {
+  if (username) {
+    username = model.username;
+    console.log('Authenticated user');
+  } else {
+    username = null;
+    console.log('user signed out.');
+  }
+});
+
 /* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
 
-export async function persistFirebase(model, watchF) {
-  function dataChange() {
-    return [model.id, model.name, model.location, model.username, model.password, model.phone, model.email];
+export async function saveToFirebase(model, watchF) {
+  if (!username) {
+    console.error('No username');
+    return;
   }
+  //function dataChange() {
+  //return [model.id, model.name, model.location, model.username, model.password, model.phone, model.email];
+  // }
   try {
     const docRef = doc(collection(db, COLLECTION), model.username);
     await setDoc(docRef, {
@@ -26,7 +42,7 @@ export async function persistFirebase(model, watchF) {
       phone: model.phone,
       email: model.email,
     });
-    console.log('Request successfully saved with ID:', request.id);
+    console.log('Request successfully saved with ID:', model.id);
   } catch (error) {
     console.error('Error saving request:', error);
   }
@@ -43,6 +59,9 @@ export function getModel() {
         model.id = data.id;
         model.location = data.location;
         model.name = data.name;
+        model.username = data.username;
+        model.phone = data.phone;
+        model.email = data.email;
       }
       console.log(model.username, model.location);
       console.log();
@@ -90,5 +109,17 @@ export async function fetchreq(model) {
     model.setRequests(docs);
   } catch (error) {
     console.error('Error fetching request:', error);
+  }
+}
+
+export async function updateDetails(model) {
+  try {
+    const docRefDetails = doc(collection(db, COLLECTION), hospitalId);
+    await updateDoc(docRefDetails, {
+      phone: model.phone,
+      email: model.email,
+    });
+  } catch (error) {
+    console.error('Editing failed');
   }
 }
