@@ -58,6 +58,8 @@ body {
   width: 100vw;
   height: 100vh;
   top: 0;
+  left: 0;
+  z-index: 10;
 }
 
 .requestFormOverlay{
@@ -66,6 +68,8 @@ body {
   width: 100%;
   height: 100%;
   z-index: 10;
+  top: 0;
+  left: 0;
 }
 
 .requestForm{
@@ -310,19 +314,19 @@ body {
   margin-top: 10px;
 }
 
-.hero-content button {
-  padding:8px;
+.contact .trigger-button {
+  padding:4px;
   background-color: #D3C2C2;
   border-radius: 8px;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 5px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
-.hero-content button:hover {
+.contact .trigger-button:hover {
   background-color: #D8D8D8;
   transition: 0.3s;
 }
@@ -349,6 +353,7 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 100px;
+  z-index: -5;
 }
 
 .current-requests-content {
@@ -373,7 +378,7 @@ body {
   width: 100%;
   cursor: pointer;
   background-color: #e9e9e9;
-
+  z-index: 0;
 }
 
 .current-request-item-content {
@@ -479,4 +484,65 @@ body {
   border-radius: 5px;
   text-transform: uppercase;
   background-color: #9A4040;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9e4e4;
+  height: 100vh;
+}
+
+.login-image {
+  width: 40vw;
+  height: 80vh;
+  background-image: url(https://images-ext-1.discordapp.net/external/2I7jwPUutk6vWkFZzLSDdwvx7pn6NGsYMNDnyjn8_qM/https/www.shutterstock.com/image-vector/blood-red-medical-background-donation-260nw-1360242566.jpg?format=webp&width=756&height=560);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px 0 0 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  width: 40vw;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  border-radius: 0 20px 20px 0;
+  background-color: white;
+}
+
+.login-input {
+  background-color: #d9d9d9;
+  padding: 6px 8px;
+  border-radius: 8px;
+  width: 350px;
+  font-size: 16px;
+}
+
+
+.login-button {
+  background-color: #9A4040;
+  color: white;
+  padding: 10px;
+  width: 350px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.login-account{
+  display: flex;
+  flex-direction: row;
+  gap: 10px
+}
+
+.login-atag{
+  text-decoration: underline;
+  color: #6c5ce7
 }

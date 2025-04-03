@@ -5,6 +5,7 @@ import { MdOutlineModeEdit } from 'react-icons/md';
 import { CurrentRequests } from '../presenter/CurrentRequests';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { MdOutlineLocalPhone } from 'react-icons/md';
+import { EditDialogue } from '../presenter/EditDialogueButton';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
   return (
@@ -18,12 +19,6 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
             <h1>Hospital Profile</h1>
             <h2>Located in: {model.location}</h2>
           </div>
-          <div>
-            <button>
-              <MdOutlineModeEdit />
-              Edit profile
-            </button>
-          </div>
         </div>
       </div>
       <div className="contact">
@@ -34,6 +29,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
         <p>{model.contact.phone}</p>
+        <EditDialogue model={model} />
       </div>
       <CurrentRequests model={model} />
       <RequestDialogue model={model} />
