@@ -6,29 +6,29 @@ import { model } from './model.js';
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
-const COLLECTION2= 'requests';
+const COLLECTION2 = 'requests';
 const docRef = doc(db, COLLECTION, 'hospital1');
 
 /* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
 
-export function persistFirebase(model, watchF) {
+export async function persistFirebase(model, watchF) {
   function dataChange() {
-    return [model.id, model.name, model.location];
+    return [model.id, model.name, model.location, model.username, model.phone, model.email];
   }
-
-  setDoc(
-    docRef,
-    {
+  try {
+    const docRef = doc(collection(db, COLLECTION), model.username);
+    await setDoc(docRef, {
       id: model.id,
+      username: model.username,
       name: model.name,
       location: model.location,
-    },
-    {
-      merge: true,
-    }
-  ).catch((error) => {
-    console.error(error);
-  });
+      phone: model.phone,
+      email: model.email,
+    });
+    console.log('Request successfully saved with ID:', request.id);
+  } catch (error) {
+    console.error('Error saving request:', error);
+  }
 
   watchF(dataChange, persistFirebase);
 }
@@ -44,7 +44,7 @@ export function getModel() {
         model.name = data.name;
       }
       console.log(model.username, model.location);
-      console.log()
+      console.log();
     })
     .catch((error) => {
       console.error(error);
@@ -59,37 +59,35 @@ export async function saveRequests(request) {
       urgency: request.urgency,
       bloodType: request.bloodType,
       amount: request.amount,
-      description: request.description, 
-      current: request.current
+      description: request.description,
+      current: request.current,
       /* email: request.email,
       phone:request.phone */
     });
-    console.log("Request successfully saved with ID:", request.id);
+    console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
-    console.error("Error saving request:", error);
+    console.error('Error saving request:', error);
   }
 }
 
-export async function removeReq(request){
-  try{
+export async function removeReq(request) {
+  try {
     const docRef = doc(collection(db, COLLECTION2), request);
     await updateDoc(docRef, {
       current: false, // Update the 'current' field to false
     });
-  }catch (error){
-    console.error("Error deleting request:", error);
+  } catch (error) {
+    console.error('Error deleting request:', error);
   }
 }
 
-export async function fetchreq(model){
-  try{
+export async function fetchreq(model) {
+  try {
     /* const docRef = doc(collection(db, COLLECTION2)); */
     const querySnapshot = await getDocs(collection(db, COLLECTION2));
-    const docs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     model.setRequests(docs);
-  
-  }catch (error){
-    console.error("Error fetching request:", error);
+  } catch (error) {
+    console.error('Error fetching request:', error);
   }
 }
-
