@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { saveRequests } from '../model/firebaseModel';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
@@ -10,14 +11,17 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
   const [amount, setAmount] = useState(1);
 
   function submitForm() {
-    addRequest({
-      id: '123123123',
+    const id = crypto.randomUUID();
+    const req= {
+      id,
       hospitalName,
       bloodType,
       urgency: isUrgent,
       description: notes,
       amount,
-    });
+    }
+    addRequest(req);
+    saveRequests(req);
   }
 
   return (

@@ -1,3 +1,5 @@
+import { saveRequests } from "./firebaseModel";
+
 const model = {
   id: 'hospitalId',
   location: 'Test location',
@@ -14,6 +16,8 @@ const model = {
       bloodType: 'A+',
       amount: 10,
       description: 'Description',
+      email: 'hospital@email.com',
+    phone: '+46 20 123 4567'
     },
   ],
 
@@ -28,6 +32,7 @@ const model = {
   },
   addRequest(request) {
     this.requests = [request, ...this.requests];
+    saveRequests(request);
   },
   removeRequest(id) {
     this.requests = this.requests.filter((request) => {
