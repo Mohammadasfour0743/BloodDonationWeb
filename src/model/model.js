@@ -1,4 +1,4 @@
-import { saveRequests } from "./firebaseModel";
+import { saveRequests } from './firebaseModel';
 
 const model = {
   id: 'hospitalId',
@@ -8,19 +8,7 @@ const model = {
     email: 'hospital@email.com',
     phone: '+46 20 123 4567',
   },
-  requests: [
-    {
-      id: '1',
-      hospitalName: 'Hospital 1',
-      urgency: true,
-      bloodType: 'A+',
-      amount: 10,
-      description: 'Description',
-      email: 'hospital@email.com',
-    phone: '+46 20 123 4567', 
-    current : true,
-    },
-  ],
+  requests: [],
 
   setId(id) {
     this.id = id;
@@ -38,6 +26,18 @@ const model = {
   removeRequest(id) {
     this.requests = this.requests.filter((request) => {
       return request.id !== id;
+    });
+  },
+  deactivateRequest(id) {
+    this.requests = this.requests.map((request) => {
+      if (request.id === id) {
+        return {
+          ...request,
+          current: false,
+        };
+      } else {
+        return request;
+      }
     });
   },
   setRequests(requests) {
