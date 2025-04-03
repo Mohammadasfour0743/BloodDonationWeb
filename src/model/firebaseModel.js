@@ -13,13 +13,14 @@ const docRef = doc(db, COLLECTION, 'hospital1');
 
 export async function persistFirebase(model, watchF) {
   function dataChange() {
-    return [model.id, model.name, model.location, model.username, model.phone, model.email];
+    return [model.id, model.name, model.location, model.username, model.password, model.phone, model.email];
   }
   try {
     const docRef = doc(collection(db, COLLECTION), model.username);
     await setDoc(docRef, {
       id: model.id,
       username: model.username,
+      password: model.password,
       name: model.name,
       location: model.location,
       phone: model.phone,

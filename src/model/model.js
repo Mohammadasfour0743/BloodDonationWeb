@@ -3,6 +3,7 @@ import { saveRequests } from './firebaseModel';
 const model = {
   id: 'hospitalId',
   username: 'hospital1',
+  password: 'password',
   location: 'Test location',
   name: 'Hospital 1',
 
@@ -18,6 +19,11 @@ const model = {
   setUsername(username) {
     this.username = username;
   },
+
+  setPassword(password) {
+    this.password = password;
+  },
+
   setLocation(location) {
     this.location = location;
   },
