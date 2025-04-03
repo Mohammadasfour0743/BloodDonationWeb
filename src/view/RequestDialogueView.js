@@ -1,10 +1,29 @@
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { saveRequests } from '../model/firebaseModel';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
-export function RequestDialogueView({ closeEventHandler }) {
-  const [selected, setSelected] = useState('');
+export function RequestDialogueView({ closeEventHandler, addRequest, hospitalName, hospitalLocation, hospitalEmail }) {
+  const [bloodType, setBloodType] = useState('');
+  const [isUrgent, setUrgent] = useState(false);
+  const [notes, setNotes] = useState('');
+  const [amount, setAmount] = useState(1);
+
+  function submitForm() {
+    const id = crypto.randomUUID();
+    const req = {
+      id,
+      hospitalName,
+      bloodType,
+      urgency: isUrgent,
+      description: notes,
+      amount,
+    };
+    closeEventHandler();
+    addRequest(req);
+    saveRequests(req);
+  }
 
   return (
     <div className={'requestFormContainer'}>
@@ -21,15 +40,15 @@ export function RequestDialogueView({ closeEventHandler }) {
           </div>
           <div className="row inputRow">
             <label>Name</label>
-            <input disabled={true} type="text" className="formInput" />
+            <input value={hospitalName} disabled={true} type="text" className="formInput" />
           </div>
           <div className="row inputRow">
             <label>Location</label>
-            <input disabled={true} type="text" className="formInput" />
+            <input value={hospitalLocation} disabled={true} type="text" className="formInput" />
           </div>
           <div className="row inputRow">
             <label>Email</label>
-            <input disabled={true} type="text" className="formInput" />
+            <input value={hospitalEmail} disabled={true} type="text" className="formInput" />
           </div>
           <div className="row inputRow">
             <label>Phone</label>
@@ -50,8 +69,8 @@ export function RequestDialogueView({ closeEventHandler }) {
                   type="radio"
                   name="customRadio"
                   value={option}
-                  checked={selected === option}
-                  onChange={() => setSelected(option)}
+                  checked={bloodType === option}
+                  onChange={() => setBloodType(option)}
                 />
                 <span className="custom-radio"></span>
                 {option}
@@ -60,20 +79,33 @@ export function RequestDialogueView({ closeEventHandler }) {
           </div>
           <div className="row inputRow checkbox-container">
             <label className="checkbox-label-text">Urgent request</label>
-            <input type="checkbox" id="myCheckbox" class="custom-checkbox" />
+            <input
+              value={isUrgent}
+              onChange={(e) => setUrgent(e.target.checked)}
+              type="checkbox"
+              id="myCheckbox"
+              class="custom-checkbox"
+            />
             <label for="myCheckbox" class="checkbox-label"></label>
           </div>
           <div className="row inputRow amountRow">
             <label>Amount (in units)</label>
-            <input type="number" className="formInput amountInput" />
+            <input
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              type="number"
+              className="formInput amountInput"
+            />
           </div>
           <div className="column">
             <label>Notes</label>
-            <textarea className="textarea" />
+            <textarea value={notes} onChange={(e) => setNotes(e.target.value)} className="textarea" />
           </div>
         </div>
         <div className="formSubmitContainer">
-          <button className="formSubmit">Submit</button>
+          <button className="formSubmit" onClick={submitForm}>
+            Submit
+          </button>
         </div>
       </div>
 

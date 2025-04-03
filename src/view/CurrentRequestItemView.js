@@ -7,14 +7,15 @@ export function CurrentRequestItemView({ request, idx, isOpen, setOpen, removeIt
     setOpen((state) => !state);
   }
 
-  function onRemovePressed() {
+  function onRemovePressed(event) {
+    event.stopPropagation();
     removeItem(request.id);
   }
 
   return (
     <div onClick={onItemPressed} className="current-request-item" key={idx}>
       <div className="top-left">
-        {request.urgency === 0 && (
+        {request.urgency && (
           <div className="urgent-box">
             <p>Urgent</p>
           </div>
@@ -25,7 +26,7 @@ export function CurrentRequestItemView({ request, idx, isOpen, setOpen, removeIt
       </div>
       <div className="current-request-item-content">
         <div className="current-request-item-header">
-          <h2>{request.hospital.name}</h2>
+          <h2>{request.hospitalName}</h2>
           <div className="separator" />
           <h2>Blood type {request.bloodType}</h2>
         </div>
