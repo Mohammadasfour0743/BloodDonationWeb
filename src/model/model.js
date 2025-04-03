@@ -17,7 +17,8 @@ const model = {
       amount: 10,
       description: 'Description',
       email: 'hospital@email.com',
-    phone: '+46 20 123 4567'
+    phone: '+46 20 123 4567', 
+    current : true,
     },
   ],
 

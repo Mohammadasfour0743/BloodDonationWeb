@@ -19,6 +19,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
       urgency: isUrgent,
       description: notes,
       amount,
+      current : true,
     }
     addRequest(req);
     saveRequests(req);

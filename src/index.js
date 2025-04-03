@@ -1,11 +1,11 @@
-import { createBrowserRouter, RouterProvider } from 'react-router';
-import { getModel, persistFirebase, saveRequests } from './model/firebaseModel.js';
-import LoginPage from './routes/LoginPage.js';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import HospitalProfile from './routes/HospitalProfile.js';
 import { configure, observable, reaction } from 'mobx';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import './index.css';
+import { fetchreq, persistFirebase } from './model/firebaseModel.js';
 import { model } from './model/model.js';
+import HospitalProfile from './routes/HospitalProfile.js';
+import LoginPage from './routes/LoginPage.js';
 
 configure({ enforceActions: 'always' });
 const reactiveModel = observable(model);
@@ -26,6 +26,8 @@ const router = createBrowserRouter([
 const root = document.getElementById('root');
 
 //getModel();
+
+fetchreq(reactiveModel)
 
 persistFirebase(reactiveModel, reaction); 
 
