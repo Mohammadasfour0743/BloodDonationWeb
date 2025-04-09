@@ -12,6 +12,7 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
     removeItem(request.id);
   }
 
+  console.log(request);
   return (
     <div onClick={onItemPressed} className="current-request-item" key={idx}>
       <div className="top-left">
@@ -26,11 +27,9 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
       </div>
       <div className="current-request-item-content">
         <div className="current-request-item-header">
-          <h2>{hospitalName}</h2>
-          <div className="separator" />
-          <h2>Blood type {request.bloodType}</h2>
+          <h2>Blood types</h2>
         </div>
-        <div className="urgency">{request.amount} units</div>
+        <h2>{Array.isArray(request.bloodTypes) ? request.bloodTypes.join(', ') : request.bloodType}</h2>
       </div>
       <div className="arrow">
         {!isOpen && <FaChevronDown size={25} />}

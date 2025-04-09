@@ -2,7 +2,7 @@ import { configure, observable, reaction } from 'mobx';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css';
-import { fetchreq, persistFirebase } from './model/firebaseModel.js';
+import { fetchreq, saveToFirebase } from './model/firebaseModel.js';
 import { model } from './model/model.js';
 import HospitalProfile from './routes/HospitalProfile.js';
 import LoginPage from './routes/LoginPage.js';
@@ -29,7 +29,7 @@ const root = document.getElementById('root');
 
 fetchreq(reactiveModel)
 
-persistFirebase(reactiveModel, reaction); 
+saveToFirebase(reactiveModel, reaction); 
 
 /* getModel(); */
 
