@@ -72,9 +72,7 @@ export function PopUpView({ closeEventHandler }) {
             />
           </div>
 
-          <button type="button" className="submit-form" onClick={handleSubmit}>
-            Submit
-          </button>
+          <button type="button" className="submit-form" onClick={handleSubmit}>Submit</button>
         </div>
       </div>
     </>

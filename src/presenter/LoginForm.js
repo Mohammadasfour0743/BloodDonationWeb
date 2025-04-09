@@ -13,8 +13,7 @@ export const LoginForm = observer(function LoginFormRender() {
   async function authenticateUser() {
     const { success, message } = await signIn(emailAddress, password);
     if (!success) {
-      console.log(message);
-      setError(message);
+      setError('Invalid credentials');
       return;
     }
     navigate('/hospitalProfile');
