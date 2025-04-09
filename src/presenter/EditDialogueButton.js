@@ -17,6 +17,7 @@ export const EditDialogue = observer(function EditDialogue({ model }) {
   function saveSettings() {
     model.setEmail(email);
     model.setPhone(phone);
+    setDialogueOpen(false);
   }
 
   function onEditDialogueButtonClicked() {
