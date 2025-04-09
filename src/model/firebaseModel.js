@@ -2,10 +2,10 @@ import { initializeApp } from 'firebase/app';
 import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import { model } from './model.js';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-export const auth = getAuth(app);
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
@@ -51,39 +51,39 @@ export async function signOutUser() {
   }
 }
 
-/* const docRef2 = doc(db, COLLECTION2, 'requestsa') */
-
 export async function saveToFirebase(model, watchF) {
   if (!model.username) {
     console.error('No username');
     return;
   }
+   
   function dataChange() {
-    return [model.id, model.name, model.location, model.username, model.phone, model.email];
+    return [model.id, model.name, model.location, model.username, model.phone, /* model.email */];
   }
+
   try {
-    const docRef = doc(collection(db, COLLECTION), model.username);
+    const docRef = doc(db, COLLECTION, model.username);
     await setDoc(docRef, {
       id: model.id,
       username: model.username,
       name: model.name,
       location: model.location,
       phone: model.phone,
-      email: model.email,
+      /* email: model.email, */
     });
     console.log('Request successfully saved with ID:', model.id);
   } catch (error) {
     console.error('Error saving request:', error);
   }
-
-  watchF(dataChange, saveToFirebase);
+    watchF(dataChange, saveToFirebase);
+  
 }
 
 export function getModel() {
-  const docRef = doc(collection(db, COLLECTION), model.username);
+  const docRef = doc(db, COLLECTION, model.username);
   getDoc(docRef)
     .then((snapshot) => {
-      const data = snapshot.exists ? snapshot.data() : {};
+      const data = snapshot.exists() ? snapshot.data() : {};
 
       console.log('Raw data from Firestore:', data);
       if (data) {
@@ -95,7 +95,6 @@ export function getModel() {
         model.email = data.email;
       }
       console.log(model.username, model.location);
-      console.log();
     })
     .catch((error) => {
       console.error(error);
@@ -104,16 +103,13 @@ export function getModel() {
 
 export async function saveRequests(request) {
   try {
-    const docRef = doc(collection(db, COLLECTION2), request.id);
+    const docRef = doc(db, COLLECTION2, request.id);
     await setDoc(docRef, {
-      /* hospitalId: request.hospitalId, */
       urgency: request.urgency,
       bloodTypes: request.bloodTypes,
       amount: request.amount,
       description: request.description,
       current: request.current,
-      /* email: request.email,
-      phone:request.phone */
     });
     console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
@@ -123,10 +119,9 @@ export async function saveRequests(request) {
 
 export async function removeReq(request) {
   try {
-    const docRef = doc(collection(db, COLLECTION2), request);
-    await updateDoc(docRef, {
-      current: false, // Update the 'current' field to false
-    });
+    const docRef = doc(db, COLLECTION2, request.id);
+    await updateDoc(docRef, { current: false });
+    console.log('Request successfully removed:', request.id);
   } catch (error) {
     console.error('Error deleting request:', error);
   }
@@ -136,7 +131,9 @@ export async function fetchreq(model) {
   try {
     const querySnapshot = await getDocs(collection(db, COLLECTION2));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    const filteredDocs = docs.filter((doc) => doc.hospitalId === model.hospitalId); // Assuming model.hospitalId is the correct field
+    console.log("Fetched documents:", docs);
+
+    const filteredDocs = docs.filter((doc) => doc.hospitalId === model.hospitalId);
     if (filteredDocs.length > 0) {
       model.setRequests(filteredDocs);
     } else {
@@ -151,13 +148,10 @@ export async function updateDetails(model) {
   if (!model.phone || !model.email) {
     console.error('Phone or email is missing');
     return;
-  }
+  } 
   try {
-    const docRefDetails = doc(collection(db, COLLECTION), model.username);
-    await updateDoc(docRefDetails, {
-      phone: model.phone,
-      email: model.email,
-    });
+    const docRefDetails = doc(db, COLLECTION, model.username);
+    await updateDoc(docRefDetails, { phone: model.phone, email: model.email });
   } catch (error) {
     console.error('Editing failed', error.message);
   }
