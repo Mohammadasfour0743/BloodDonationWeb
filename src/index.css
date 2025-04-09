@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-  font-family:  "Roboto";
+  font-family: 'Roboto';
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -9,31 +9,29 @@
   border: 0;
 }
 
-
 body {
   margin: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
-
 
 :root {
   --primary-color: #780000;
   --Secondary-color: #b47f7f;
 }
 
-.button{
+.button {
   height: 50px;
   width: 100px;
   border-radius: 12px;
 }
 
-.button:hover{
+.button:hover {
   transition: 0.3s;
   opacity: 0.7;
   cursor: pointer;
 }
 
-.loginButtonContainer{
+.loginButtonContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,7 +39,7 @@ body {
   height: 100vh;
 }
 
-.requestDialogueButton{
+.requestDialogueButton {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -50,10 +48,9 @@ body {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  
 }
 
-.requestFormContainer{
+.requestFormContainer {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -62,9 +59,9 @@ body {
   z-index: 10;
 }
 
-.requestFormOverlay{
+.requestFormOverlay {
   position: fixed;
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
   width: 100%;
   height: 100%;
   z-index: 10;
@@ -72,7 +69,7 @@ body {
   left: 0;
 }
 
-.requestForm{
+.requestForm {
   position: absolute;
   z-index: 11;
   width: 500px;
@@ -80,11 +77,11 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+
   border-radius: 10px;
 }
 
-.topBar{
+.topBar {
   border-radius: 10px 10px 0 0;
   display: flex;
   flex-direction: row;
@@ -93,18 +90,18 @@ body {
   background-color: var(--Secondary-color);
 }
 
-.closeWindow{
+.closeWindow {
   cursor: pointer;
 }
 
-.row{
+.row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
 
-.requestForm .header{
+.requestForm .header {
   color: var(--primary-color);
   font-weight: 800;
   margin-top: 20px;
@@ -118,13 +115,12 @@ body {
 }
 
 .formInput {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-radius: 13px;
   width: 70%;
   outline: none;
   border: none;
   padding: 10px;
-  
 }
 
 .inputRow {
@@ -146,7 +142,6 @@ body {
   font-size: 20px;
 }
 
-
 .radio-group {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* ⬅️ 4 columns now */
@@ -162,22 +157,22 @@ body {
   user-select: none;
 }
 
-.radio-option input[type="radio"] {
+.radio-option input[type='radio'] {
   display: none;
 }
 
 .custom-radio {
   width: 20px;
   height: 20px;
-  background-color: #D9D9D9; /* default background */
+  background-color: #d9d9d9; /* default background */
   border-radius: 50%;
   position: relative;
   transition: background-color 0.3s ease;
 }
 
 .radio-option:hover .custom-radio::before,
-.radio-option input[type="radio"]:checked + .custom-radio::before {
-  content: "";
+.radio-option input[type='radio']:checked + .custom-radio::before {
+  content: '';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -188,10 +183,10 @@ body {
 }
 
 .radio-option:hover .custom-radio::before {
-  background-color: #AD7878;
+  background-color: #ad7878;
 }
 
-.radio-option input[type="radio"]:checked + .custom-radio::before {
+.radio-option input[type='radio']:checked + .custom-radio::before {
   background-color: #780000;
 }
 
@@ -199,7 +194,6 @@ body {
   justify-content: flex-start !important;
   gap: 15px !important;
 }
-
 
 .custom-checkbox {
   display: none;
@@ -222,7 +216,7 @@ body {
 }
 
 .checkbox-label::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 8px; /* moved 1px to the right */
   top: 2px;
@@ -253,7 +247,7 @@ body {
 }
 
 .textarea {
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   border-radius: 12px;
   border: 0;
   min-height: 50px;
@@ -285,7 +279,7 @@ body {
 }
 
 .hero {
-  background-color: #9A4040;
+  background-color: #9a4040;
   color: white;
   display: flex;
   flex-direction: row;
@@ -305,7 +299,7 @@ body {
   font-size: 54px;
   font-weight: bold;
   text-transform: uppercase;
-  text-shadow: 1px 1px 2px #8B8B8B;
+  text-shadow: 1px 1px 2px #8b8b8b;
 }
 
 .hero-content h2 {
@@ -315,8 +309,8 @@ body {
 }
 
 .contact .trigger-button {
-  padding:4px;
-  background-color: #D3C2C2;
+  padding: 4px;
+  background-color: #d3c2c2;
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -327,13 +321,13 @@ body {
 }
 
 .contact .trigger-button:hover {
-  background-color: #D8D8D8;
+  background-color: #d8d8d8;
   transition: 0.3s;
 }
 
 .contact {
   padding: 12px;
-  background-color: #B47F7F;
+  background-color: #b47f7f;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -365,7 +359,6 @@ body {
   margin-top: 50px;
 }
 
-
 .current-requests h1 {
   text-transform: uppercase;
   font-weight: normal;
@@ -386,7 +379,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background-color: #D3C2C2;
+  background-color: #d3c2c2;
   padding: 35px 20px;
   width: 100%;
   border-radius: 20px;
@@ -431,7 +424,7 @@ body {
   font-size: 20px;
   color: white;
   align-self: flex-end;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .current-request-item .description {
@@ -469,7 +462,7 @@ body {
 }
 
 .current-request-item .responses {
-  background-color: #B47F7F;
+  background-color: #b47f7f;
   border-radius: 5px;
   color: white;
   font-size: 16px;
@@ -483,7 +476,7 @@ body {
   width: fit-content;
   border-radius: 5px;
   text-transform: uppercase;
-  background-color: #9A4040;
+  background-color: #9a4040;
 }
 
 .login-container {
@@ -491,7 +484,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #F2ECEC;
+  background-color: #f2ecec;
   width: 100vw;
   height: 100vh;
   padding: 70px 100px;
@@ -563,27 +556,25 @@ body {
   font-size: 20px;
 }
 
-
 .login-button {
-  background-color: #FBBC05;
+  background-color: #fbbc05;
   padding: 10px 30px;
   width: fit-content;
   border-radius: 8px;
   font-size: 20px;
 }
 
-.login-account{
+.login-account {
   display: flex;
   flex-direction: row;
   gap: 10px;
   width: 425px;
 }
 
-.login-atag{
+.login-atag {
   text-decoration: underline;
   color: #780000;
   font-weight: 500;
-
 }
 
 .login-forgot {
@@ -604,4 +595,16 @@ body {
 
 .login-error {
   color: red;
+}
+
+.logoutButton {
+  color: white;
+  background-color: transparent;
+  margin-left: 96%;
+  font-weight: bolder;
+}
+
+.logoutButton:hover {
+  cursor: pointer;
+  opacity: 40%;
 }
