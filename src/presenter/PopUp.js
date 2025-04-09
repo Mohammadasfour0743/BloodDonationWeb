@@ -5,12 +5,17 @@ import { useState } from 'react';
 export const Popup = observer(function Popup({ model }) {
   const [isOpen, setOpen] = useState(false);
 
+  function onClose() {
+    setOpen(false);
+  }
+
   if (isOpen) {
-    return <PopUpView />;
+    return <PopUpView closeEventHandler={onClose} />;
   }
 
   return (
     <span
+      className="login-atag"
       onClick={() => {
         setOpen(true);
       }}

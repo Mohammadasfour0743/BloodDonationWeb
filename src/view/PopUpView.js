@@ -1,12 +1,12 @@
 import { IoClose } from 'react-icons/io5';
 
-export function PopUpView() {
+export function PopUpView({ closeEventHandler }) {
   return (
     <>
       <div className="popUp-overlay"></div>
       <div className="popup-container">
         <div className="topBar">
-          <IoClose size={21} className={'closeWindow'} />
+          <IoClose onClick={closeEventHandler} size={21} className={'closeWindow'} />
         </div>
         <div className="popup-content">
           <h1 className="verification-title">Registration form</h1>
@@ -30,7 +30,9 @@ export function PopUpView() {
             <textarea className="blop" placeholder="email"></textarea>
             <textarea className="blop" placeholder="phone number"></textarea>
           </div>
-          <button className="submit-form">Submit</button>
+          <button type="button" className="submit-form">
+            Submit
+          </button>
         </div>
       </div>
     </>
