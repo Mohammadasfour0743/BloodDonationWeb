@@ -30,10 +30,10 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <p>Contact</p>
         <div className="separator" />
         <MdOutlineMailOutline style={{ marginRight: -12 }} />
-        <p>{model.contact.email}</p>
+        <p>{model.email}</p>
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
-        <p>{model.contact.phone}</p>
+        <p>{model.phone}</p>
       </div>
       <CurrentRequests model={model} />
       <RequestDialogue model={model} />
