@@ -176,7 +176,7 @@ export async function updateDetails(model) {
 
 export async function saveApplicationDetails(application) {
   try {
-    const docRef = doc(db, COLLECTION2, application.id || crypto.randomUUID());
+    const docRef = doc(db, COLLECTION3, application.id || crypto.randomUUID());
     await setDoc(docRef, {
       bloodBankName: application.bloodBankName,
       hospitalName: application.hospitalName,

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
+import { saveApplicationDetails } from '../model/firebaseModel';
 
-export function PopUpView({ closeEventHandler, saveApplicationDetails }) {
+export function PopUpView({ closeEventHandler }) {
   const [formData, setFormData] = useState({
     bloodBankName: '',
     hospitalName: '',
@@ -18,7 +19,7 @@ export function PopUpView({ closeEventHandler, saveApplicationDetails }) {
 
   const handleSubmit = async () => {
     await saveApplicationDetails(formData);
-    closeEventHandler(); 
+    closeEventHandler();
   };
 
   return (
@@ -46,15 +47,29 @@ export function PopUpView({ closeEventHandler, saveApplicationDetails }) {
           <textarea className="blop" value={formData.licenseNumber} onChange={handleChange('licenseNumber')} />
 
           <label>Enter the registration number of the hospital (if any)</label>
-          <textarea className="blop" value={formData.registrationNumber} onChange={handleChange('registrationNumber')} />
+          <textarea
+            className="blop"
+            value={formData.registrationNumber}
+            onChange={handleChange('registrationNumber')}
+          />
 
           <label>Enter the location of the blood bank/hospital</label>
           <textarea className="blop" value={formData.location} onChange={handleChange('location')} />
 
           <label>Enter the contact information of the blood bank/hospital</label>
           <div className="email-phone">
-            <textarea className="blop" placeholder="email" value={formData.contactEmail} onChange={handleChange('contactEmail')} />
-            <textarea className="blop" placeholder="phone number" value={formData.contactPhone} onChange={handleChange('contactPhone')} />
+            <textarea
+              className="blop"
+              placeholder="email"
+              value={formData.contactEmail}
+              onChange={handleChange('contactEmail')}
+            />
+            <textarea
+              className="blop"
+              placeholder="phone number"
+              value={formData.contactPhone}
+              onChange={handleChange('contactPhone')}
+            />
           </div>
 
           <button type="button" className="submit-form" onClick={handleSubmit}>
