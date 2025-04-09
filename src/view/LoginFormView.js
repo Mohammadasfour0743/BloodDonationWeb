@@ -1,4 +1,5 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
+import { Popup } from '../presenter/PopUp';
 
 export function LoginFormView({ error, email, password, setEmail, setPassword, loginFunction }) {
   return (
@@ -50,13 +51,7 @@ export function LoginFormView({ error, email, password, setEmail, setPassword, l
           </button>
           <div className="login-account">
             <p>
-              You are a hospital and do not have an account? You are missing out on blood!!!{' '}
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSckhDpJUwjaYR_hO6n6-G25EdzTnzuqXCu0_E39SwozYqXKjg/viewform?usp=header"
-                className="login-atag"
-              >
-                Sign up
-              </a>
+              You are a hospital and do not have an account? You are missing out on blood!!! <Popup />
             </p>
           </div>
         </form>

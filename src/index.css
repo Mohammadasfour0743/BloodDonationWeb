@@ -608,3 +608,66 @@ body {
   cursor: pointer;
   opacity: 40%;
 }
+
+
+.popup-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 12px;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  max-height: 90vh;
+  overflow: scroll;
+}
+.popUp-overlay{
+  position: fixed;
+  top: 0%;
+  left: 0;
+  background-color: rgba(0,0,0,0.6);
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+}
+
+.blop {
+  background-color: #D9D9D9;
+  border-radius: 13px;
+  width: 100%;
+  outline: none;
+  border: none;
+  padding: 10px;
+  resize: none;
+}
+
+.verification-title{
+  color:#780000;
+  text-align: center;
+}
+
+.note-margin{
+  margin-bottom: 10px;
+}
+
+.submit-form{
+  background-color: #B47F7F;
+  padding: 14px 14px;
+  text-align: center;
+  color: white;
+  border-radius: 12px;
+  font-size: 16px;
+}
+
+.email-phone{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
