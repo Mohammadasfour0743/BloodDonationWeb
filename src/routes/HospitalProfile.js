@@ -6,6 +6,8 @@ import { MdOutlineMailOutline } from 'react-icons/md';
 import { MdOutlineLocalPhone } from 'react-icons/md';
 import { EditDialogue } from '../presenter/EditDialogueButton';
 import { Navigate } from 'react-router';
+import { MdLogout } from 'react-icons/md';
+import { signOutUser } from '../model/firebaseModel';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
   if (model.username === null) {
@@ -20,6 +22,14 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
     <div>
       <header className="mainHeader">
         <GiHamburgerMenu color="white" size={35} />
+        <button
+          className="logoutButton"
+          onClick={() => {
+            signOutUser();
+          }}
+        >
+          <MdLogout size={35} />
+        </button>
       </header>
       <div className="hero">
         <div className="hero-content">
@@ -37,6 +47,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
         <p>{model.phone}</p>
+
         <EditDialogue model={model} />
       </div>
       <CurrentRequests model={model} />
