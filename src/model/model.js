@@ -2,17 +2,28 @@ import { saveRequests } from './firebaseModel';
 
 const model = {
   id: 'hospitalId',
+  username: 'hospital1',
+  password: 'password',
   location: 'Test location',
   name: 'Hospital 1',
-  contact: {
-    email: 'hospital@email.com',
-    phone: '+46 20 123 4567',
-  },
+
+  email: 'hospital@email.com',
+  phone: '+46 20 123 4567',
+
   requests: [],
 
   setId(id) {
     this.id = id;
   },
+
+  setUsername(username) {
+    this.username = username;
+  },
+
+  setPassword(password) {
+    this.password = password;
+  },
+
   setLocation(location) {
     this.location = location;
   },

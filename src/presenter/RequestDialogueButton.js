@@ -18,7 +18,7 @@ export const RequestDialogue = observer(function RequestDialogue({ model }) {
       <RequestDialogueView
         closeEventHandler={onOverlayClick}
         hospitalName={model.name}
-        hospitalEmail={model.contact.email}
+        hospitalEmail={model.email}
         hospitalLocation={model.location}
         addRequest={(req) => model.addRequest(req)}
       />
