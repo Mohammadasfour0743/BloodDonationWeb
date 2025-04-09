@@ -12,7 +12,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
     return <Navigate to={'/'} />;
   }
 
-  if (model.username === undefined) {
+  if (model.username === undefined || !model.ready) {
     return <div>Loading...</div>;
   }
 
@@ -36,8 +36,8 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <p>{model.email}</p>
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
-        <EditDialogue model={model} />
         <p>{model.phone}</p>
+        <EditDialogue model={model} />
       </div>
       <CurrentRequests model={model} />
       <RequestDialogue model={model} />

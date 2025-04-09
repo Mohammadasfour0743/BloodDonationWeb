@@ -1,16 +1,22 @@
 import { saveRequests } from './firebaseModel';
 
 const model = {
+  ready: false,
   id: 'hospitalId',
   username: undefined,
   location: 'Test location',
   name: 'Hospital 1',
-
   email: 'hospital@email.com',
   phone: '+46 20 123 4567',
 
   requests: [],
 
+  setEmail(email) {
+    this.email = email;
+  },
+  setPhone(phone) {
+    this.phone = phone;
+  },
   setId(id) {
     this.id = id;
   },

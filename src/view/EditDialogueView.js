@@ -1,6 +1,6 @@
 import { IoClose } from 'react-icons/io5';
 
-export function EditDialogueView({ closeEventHandler, email, phone, setEmail, setPhone }) {
+export function EditDialogueView({ saveSettings, closeEventHandler, email, phone, setEmail, setPhone }) {
   return (
     <div className={'requestFormContainer'}>
       <div className={'requestForm'}>
@@ -21,7 +21,9 @@ export function EditDialogueView({ closeEventHandler, email, phone, setEmail, se
           </div>
         </div>
         <div className="formSubmitContainer">
-          <button className="formSubmit">Submit</button>
+          <button onClick={() => saveSettings()} className="formSubmit">
+            Submit
+          </button>
         </div>
       </div>
 

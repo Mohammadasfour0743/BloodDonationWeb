@@ -27,10 +27,8 @@ const root = document.getElementById('root');
 
 //getModel();
 
-initAuth(reactiveModel);
+initAuth(reactiveModel, reaction);
 fetchreq(reactiveModel);
-
-saveToFirebase(reactiveModel, reaction);
 
 /* getModel(); */
 

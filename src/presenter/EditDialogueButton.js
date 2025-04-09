@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RequestDialogueView } from '../view/RequestDialogueView';
 import { observer } from 'mobx-react-lite';
 import { EditDialogueButtonView } from '../view/EditDialogueButtonView';
@@ -8,6 +8,16 @@ export const EditDialogue = observer(function EditDialogue({ model }) {
   const [dialogueOpen, setDialogueOpen] = useState(false);
   const [email, setEmail] = useState(model.email);
   const [phone, setPhone] = useState(model.phone);
+
+  useEffect(() => {
+    setEmail(model.email);
+    setPhone(model.phone);
+  }, [model.email, model.phone]);
+
+  function saveSettings() {
+    model.setEmail(email);
+    model.setPhone(phone);
+  }
 
   function onEditDialogueButtonClicked() {
     setDialogueOpen(true);
@@ -25,6 +35,7 @@ export const EditDialogue = observer(function EditDialogue({ model }) {
         phone={phone}
         setPhone={setPhone}
         closeEventHandler={onOverlayClick}
+        saveSettings={saveSettings}
       />
     );
   }

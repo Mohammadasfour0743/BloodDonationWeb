@@ -15,22 +15,29 @@ const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
 
-export async function initAuth(model) {
+export async function initAuth(model, watchF) {
   onAuthStateChanged(auth, (user) => {
     try {
       if (user) {
         model.id = user.email;
         model.username = user.email;
+        model.email = user.email;
         getModel(model);
         console.log('Authenticated user:', user.email);
       } else {
         model.username = null;
         console.log('User signed out.');
       }
+      model.ready = true;
     } catch (error) {
       console.error('Error in auth state change:', error.message);
     }
   });
+
+  function dataChange() {
+    return [model.id, model.name, model.location, model.username, model.phone /* model.email */];
+  }
+  watchF(dataChange, () => saveToFirebase(model));
 }
 
 export async function signIn(email, password) {
@@ -67,13 +74,9 @@ export async function signOutUser() {
   }
 }
 
-export async function saveToFirebase(model, watchF) {
-  function dataChange() {
-    return [model.id, model.name, model.location, model.username, model.phone /* model.email */];
-  }
-
+export async function saveToFirebase(model) {
   try {
-    if (!model.username) {
+    if (!model.username || !model.ready) {
       console.error('No username');
       return;
     }
@@ -90,11 +93,11 @@ export async function saveToFirebase(model, watchF) {
   } catch (error) {
     console.error('Error saving request:', error);
   }
-  watchF(dataChange, saveToFirebase);
 }
 
 export function getModel(model) {
   const docRef = doc(db, COLLECTION, model.username);
+  model.ready = false;
   getDoc(docRef)
     .then((snapshot) => {
       const data = snapshot.exists() ? snapshot.data() : null;
@@ -105,11 +108,9 @@ export function getModel(model) {
         model.location = data.location;
         model.name = data.name;
         model.phone = data.phone;
-        model.email = data.email;
-
-        console.log(model);
       }
       console.log(model.username, model.location);
+      model.ready = true;
     })
     .catch((error) => {
       console.error(error);
