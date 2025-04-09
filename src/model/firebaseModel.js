@@ -174,18 +174,20 @@ export async function updateDetails(model) {
   }
 }
 
-export async function saveApplicationDetails(){
+export async function saveApplicationDetails(application) {
   try {
-    const docRef = doc(db, COLLECTION2, application.id);
+    const docRef = doc(db, COLLECTION2, application.id || crypto.randomUUID());
     await setDoc(docRef, {
-      urgency: application.urgency,
-      bloodTypes: application.bloodTypes,
-      amount: application.amount,
-      description: application.description,
-      current: application.current,
+      bloodBankName: application.bloodBankName,
+      hospitalName: application.hospitalName,
+      licenseNumber: application.licenseNumber,
+      registrationNumber: application.registrationNumber,
+      location: application.location,
+      contactEmail: application.contactEmail,
+      contactPhone: application.contactPhone,
     });
-    console.log('application saved', application.id);
+    console.log('Application saved:', application);
   } catch (error) {
-    console.error('Error saving appliaction:', error);
+    console.error('Error saving application:', error);
   }
 }
