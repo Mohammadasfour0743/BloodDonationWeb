@@ -2,8 +2,7 @@ import { saveRequests } from './firebaseModel';
 
 const model = {
   id: 'hospitalId',
-  username: 'hospital1',
-  password: 'password',
+  username: undefined,
   location: 'Test location',
   name: 'Hospital 1',
 

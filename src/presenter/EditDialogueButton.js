@@ -6,8 +6,8 @@ import { EditDialogueView } from '../view/EditDialogueView';
 
 export const EditDialogue = observer(function EditDialogue({ model }) {
   const [dialogueOpen, setDialogueOpen] = useState(false);
-  const [email, setEmail] = useState(model.contact.email);
-  const [phone, setPhone] = useState(model.contact.phone);
+  const [email, setEmail] = useState(model.email);
+  const [phone, setPhone] = useState(model.phone);
 
   function onEditDialogueButtonClicked() {
     setDialogueOpen(true);

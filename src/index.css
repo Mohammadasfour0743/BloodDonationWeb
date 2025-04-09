@@ -580,9 +580,10 @@ body {
 }
 
 .login-atag{
-  text-decoration: none;
+  text-decoration: underline;
   color: #780000;
   font-weight: 500;
+
 }
 
 .login-forgot {
@@ -590,12 +591,17 @@ body {
   color: #464646;
 }
 
-.login-forgot span {
+.login-forgot a {
   color: #780000;
   font-weight: 500;
+  text-decoration: underline;
 }
 
 .login-account {
   margin-top: 10px;
   color: #464646;
+}
+
+.login-error {
+  color: red;
 }

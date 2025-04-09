@@ -1,6 +1,6 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
 
-export function LoginFormView({ email, password, setEmail, setPassword, loginFunction }) {
+export function LoginFormView({ error, email, password, setEmail, setPassword, loginFunction }) {
   return (
     <div className="login-container">
       <div className="login-content">
@@ -17,6 +17,7 @@ export function LoginFormView({ email, password, setEmail, setPassword, loginFun
           }}
         >
           <h1>Log In</h1>
+          {error && <p className="login-error">{error}</p>}
           <div className="login-input-container">
             <FaRegCircleUser size={22} />
             <input
@@ -42,7 +43,7 @@ export function LoginFormView({ email, password, setEmail, setPassword, loginFun
             />
           </div>
           <p className="login-forgot">
-            Forgot your password? <span>Contact us</span>
+            Forgot your password? <a href="https://teamsigmoidwebsite.vercel.app/">Contact us</a>
           </p>
           <button className="login-button" type="submit">
             Log In
@@ -50,7 +51,10 @@ export function LoginFormView({ email, password, setEmail, setPassword, loginFun
           <div className="login-account">
             <p>
               You are a hospital and do not have an account? You are missing out on blood!!!{' '}
-              <a href="https://www.y8.com/games/fruit_merge" className="login-atag">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSckhDpJUwjaYR_hO6n6-G25EdzTnzuqXCu0_E39SwozYqXKjg/viewform?usp=header"
+                className="login-atag"
+              >
                 Sign up
               </a>
             </p>

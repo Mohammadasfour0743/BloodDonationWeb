@@ -1,13 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import { RequestDialogue } from '../presenter/RequestDialogueButton';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { MdOutlineModeEdit } from 'react-icons/md';
 import { CurrentRequests } from '../presenter/CurrentRequests';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { MdOutlineLocalPhone } from 'react-icons/md';
 import { EditDialogue } from '../presenter/EditDialogueButton';
+import { Navigate } from 'react-router';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
+  if (model.username === null) {
+    return <Navigate to={'/'} />;
+  }
+
+  if (model.username === undefined) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <header className="mainHeader">
