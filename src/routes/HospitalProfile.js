@@ -1,12 +1,21 @@
 import { observer } from 'mobx-react-lite';
 import { RequestDialogue } from '../presenter/RequestDialogueButton';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { MdOutlineModeEdit } from 'react-icons/md';
 import { CurrentRequests } from '../presenter/CurrentRequests';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { MdOutlineLocalPhone } from 'react-icons/md';
+import { EditDialogue } from '../presenter/EditDialogueButton';
+import { Navigate } from 'react-router';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
+  if (model.username === null) {
+    return <Navigate to={'/'} />;
+  }
+
+  if (model.username === undefined || !model.ready) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <header className="mainHeader">
@@ -18,12 +27,6 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
             <h1>Hospital Profile</h1>
             <h2>Located in: {model.location}</h2>
           </div>
-          <div>
-            <button>
-              <MdOutlineModeEdit />
-              Edit profile
-            </button>
-          </div>
         </div>
       </div>
       <div className="contact">
@@ -34,6 +37,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         <div className="separator" />
         <MdOutlineLocalPhone style={{ marginRight: -12 }} />
         <p>{model.phone}</p>
+        <EditDialogue model={model} />
       </div>
       <CurrentRequests model={model} />
       <RequestDialogue model={model} />
