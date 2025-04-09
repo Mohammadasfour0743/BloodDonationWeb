@@ -28,7 +28,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
             signOutUser();
           }}
         >
-          <MdLogout size={25} />
+          <MdLogout size={35} />
         </button>
       </header>
       <div className="hero">
