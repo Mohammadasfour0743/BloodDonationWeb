@@ -491,58 +491,111 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #f9e4e4;
+  background-color: #F2ECEC;
+  width: 100vw;
   height: 100vh;
+  padding: 70px 100px;
+}
+
+.login-content {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: white;
+  border-radius: 50px;
 }
 
 .login-image {
-  width: 40vw;
-  height: 80vh;
-  background-image: url(https://images-ext-1.discordapp.net/external/2I7jwPUutk6vWkFZzLSDdwvx7pn6NGsYMNDnyjn8_qM/https/www.shutterstock.com/image-vector/blood-red-medical-background-donation-260nw-1360242566.jpg?format=webp&width=756&height=560);
-  background-size: cover;
+  width: 50%;
+  height: 100%;
+  background-image: url(../public/login-img.png);
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 20px 0 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 80px;
+}
+
+.login-title {
+  color: #780000;
+  font-weight: 900;
+  font-size: 50px;
+}
+
+.login-title span {
+  color: black;
 }
 
 .login-form {
+  width: 50%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  width: 40vw;
   justify-content: center;
-  align-items: center;
-  gap: 10px;
+  gap: 20px;
   padding: 0 20px;
   border-radius: 0 20px 20px 0;
   background-color: white;
 }
 
+.login-form h1 {
+  font-size: 45px;
+}
+
+.login-input-container {
+  border-bottom: 1px solid #000000;
+  width: 420px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+}
+
 .login-input {
-  background-color: #d9d9d9;
-  padding: 6px 8px;
-  border-radius: 8px;
-  width: 350px;
-  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+  font-size: 20px;
 }
 
 
 .login-button {
-  background-color: #9A4040;
-  color: white;
-  padding: 10px;
-  width: 350px;
+  background-color: #FBBC05;
+  padding: 10px 30px;
+  width: fit-content;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .login-account{
   display: flex;
   flex-direction: row;
-  gap: 10px
+  gap: 10px;
+  width: 425px;
 }
 
 .login-atag{
-  text-decoration: underline;
-  color: #6c5ce7
+  text-decoration: none;
+  color: #780000;
+  font-weight: 500;
+}
+
+.login-forgot {
+  font-size: 18px;
+  color: #464646;
+}
+
+.login-forgot span {
+  color: #780000;
+  font-weight: 500;
+}
+
+.login-account {
+  margin-top: 10px;
+  color: #464646;
 }

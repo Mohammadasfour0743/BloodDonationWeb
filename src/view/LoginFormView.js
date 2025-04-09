@@ -1,44 +1,62 @@
+import { FaRegCircleUser } from 'react-icons/fa6';
+
 export function LoginFormView({ email, password, setEmail, setPassword, loginFunction }) {
   return (
     <div className="login-container">
-      <div className="login-image"></div>
-      <form
-        className="login-form"
-        onSubmit={(event) => {
-          event.preventDefault();
-          loginFunction();
-        }}
-      >
-        <h1>Log In</h1>
-        <input
-          className="login-input"
-          value={email}
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-          type="email"
-          placeholder="Email address"
-        />
-        <input
-          className="login-input"
-          onChange={(event) => {
-            setPassword(event.target.value);
-          }}
-          value={password}
-          type="password"
-          placeholder="Password"
-        />
-        <button className="login-button" type="submit">
-          Log In
-        </button>
-        <div className="login-account">
-          <p>Don't have an account yet?</p>
-          <a href="https://www.y8.com/games/fruit_merge" className="login-atag">
-            {' '}
-            Sign up{' '}
-          </a>
+      <div className="login-content">
+        <div className="login-image">
+          <h1 className="login-title">
+            Blood <span>Share</span>
+          </h1>
         </div>
-      </form>
+        <form
+          className="login-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            loginFunction();
+          }}
+        >
+          <h1>Log In</h1>
+          <div className="login-input-container">
+            <FaRegCircleUser size={22} />
+            <input
+              className="login-input"
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
+              type="email"
+              placeholder="Email address"
+            />
+          </div>
+          <div className="login-input-container">
+            <FaRegCircleUser size={22} />
+            <input
+              className="login-input"
+              value={password}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <p className="login-forgot">
+            Forgot your password? <span>Contact us</span>
+          </p>
+          <button className="login-button" type="submit">
+            Log In
+          </button>
+          <div className="login-account">
+            <p>
+              You are a hospital and do not have an account? You are missing out on blood!!!{' '}
+              <a href="https://www.y8.com/games/fruit_merge" className="login-atag">
+                Sign up
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
