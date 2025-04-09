@@ -108,7 +108,7 @@ export async function saveRequests(request) {
     await setDoc(docRef, {
       /* hospitalId: request.hospitalId, */
       urgency: request.urgency,
-      bloodType: request.bloodType,
+      bloodTypes: request.bloodTypes,
       amount: request.amount,
       description: request.description,
       current: request.current,
