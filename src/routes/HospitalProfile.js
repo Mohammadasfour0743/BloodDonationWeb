@@ -22,14 +22,15 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
     <div>
       <header className="mainHeader">
         <GiHamburgerMenu color="white" size={35} />
-        <button
+
+        <MdLogout
           className="logoutButton"
+          size={25}
+          color="white"
           onClick={() => {
             signOutUser();
           }}
-        >
-          <MdLogout size={25} />
-        </button>
+        />
       </header>
       <div className="hero">
         <div className="hero-content">
