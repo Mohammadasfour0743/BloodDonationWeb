@@ -6,6 +6,8 @@ const model = {
   username: undefined,
   location: 'Test location',
   name: 'Hospital 1',
+  email:undefined,
+  phone: undefined,
 
   requests: [],
 

@@ -109,6 +109,7 @@ export function getModel(model) {
         model.location = data.location;
         model.name = data.name;
         model.phone = data.phone;
+        model.email = data.email;
       }
       console.log(model.username, model.location);
       model.ready = true;
