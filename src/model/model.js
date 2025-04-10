@@ -6,8 +6,6 @@ const model = {
   username: undefined,
   location: 'Test location',
   name: 'Hospital 1',
-  email: 'hospital@email.com',
-  phone: '+46 20 123 4567',
 
   requests: [],
 

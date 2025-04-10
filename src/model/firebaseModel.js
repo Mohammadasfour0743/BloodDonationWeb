@@ -21,10 +21,10 @@ export async function initAuth(model, watchF) {
       if (user) {
         model.id = user.email;
         model.username = user.email;
-        model.email = user.email;
         getModel(model);
         console.log('Authenticated user:', user.email);
       } else {
+        model.id = null;
         model.username = null;
         console.log('User signed out.');
       }
@@ -87,7 +87,7 @@ export async function saveToFirebase(model) {
       name: model.name,
       location: model.location,
       phone: model.phone,
-      /* email: model.email, */
+      email: model.email,
     });
     console.log('Request successfully saved with ID:', model.id);
   } catch (error) {
