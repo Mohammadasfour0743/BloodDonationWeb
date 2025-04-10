@@ -23,6 +23,7 @@ export async function initAuth(model, watchF) {
         model.id = user.email;
         model.username = user.email;
         getModel(model);
+        fetchreq(model);
         console.log('Authenticated user:', user.email);
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
@@ -183,7 +184,7 @@ export async function fetchreq(model) {
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     console.log('Fetched documents:', docs);
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.hospitalName);
+    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username && doc.current === true);
     if (filteredDocs.length > 0) {
       model.setRequests(filteredDocs);
     } else {
