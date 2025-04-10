@@ -159,6 +159,7 @@ export async function saveRequests(request) {
       amount: request.amount,
       description: request.description,
       current: request.current,
+      hospitalName: request.hospitalName,
     });
     console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
@@ -182,7 +183,7 @@ export async function fetchreq(model) {
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     console.log('Fetched documents:', docs);
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalId === model.hospitalId);
+    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.hospitalName);
     if (filteredDocs.length > 0) {
       model.setRequests(filteredDocs);
     } else {

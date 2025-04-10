@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
+import { reactiveModel } from '..';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
@@ -14,7 +15,8 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
     const id = crypto.randomUUID();
     const req = {
       id,
-      hospitalName,
+      hospitalName: reactiveModel.username,
+      hospitalId: reactiveModel.id,
       bloodTypes: bloodTypes,
       urgency: isUrgent,
       description: notes,
