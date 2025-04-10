@@ -23,7 +23,21 @@ export async function initAuth(model, watchF) {
         model.id = user.email;
         model.username = user.email;
         getModel(model);
+        fetchreq(model);
         console.log('Authenticated user:', user.email);
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const longitude = position.coords.longitude;
+            const latitude = position.coords.latitude;
+
+            model.setlongitude(longitude);
+            model.setLatitude(latitude);
+            const coordinates = `${position.coords.latitude}, ${position.coords.longitude}`;
+            console.log('Longitude:', model.longitude, 'Latitude:', model.latitude);
+            console.log(coordinates);
+            saveToFirebase(model);
+          });
+        }
       } else {
         model.id = null;
         model.username = null;
@@ -36,7 +50,16 @@ export async function initAuth(model, watchF) {
   });
 
   function dataChange() {
-    return [model.id, model.name, model.location, model.username, model.phone /* model.email */];
+    return [
+      model.id,
+      model.name,
+      model.location,
+      model.username,
+      model.phone,
+      model.email,
+      model.longitude,
+      model.latitude,
+    ];
   }
   watchF(dataChange, () => saveToFirebase(model));
 }
@@ -81,6 +104,10 @@ export async function saveToFirebase(model) {
       console.error('No username');
       return;
     }
+    if (!model.longitude || !model.latitude) {
+      console.error('Longitude or latitude is missing');
+      return;
+    }
     const docRef = doc(db, COLLECTION, model.username);
     await setDoc(docRef, {
       id: model.id,
@@ -89,8 +116,11 @@ export async function saveToFirebase(model) {
       location: model.location,
       phone: model.phone,
       email: model.email,
+      longitude: model.longitude,
+      latitude: model.latitude,
     });
     console.log('Request successfully saved with ID:', model.id);
+    console.log('location: ', model.location);
   } catch (error) {
     console.error('Error saving request:', error);
   }
@@ -110,8 +140,10 @@ export function getModel(model) {
         model.name = data.name;
         model.phone = data.phone;
         model.email = data.email;
+        if (data.longitude) data.longitude = model.longitude;
+        if (data.latitude) data.latitude = model.latitude;
       }
-      console.log(model.username, model.location);
+      console.log(model.username, model.longitude, model.latitude);
       model.ready = true;
     })
     .catch((error) => {
@@ -128,6 +160,7 @@ export async function saveRequests(request) {
       amount: request.amount,
       description: request.description,
       current: request.current,
+      hospitalName: request.hospitalName,
     });
     console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
@@ -151,7 +184,7 @@ export async function fetchreq(model) {
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     console.log('Fetched documents:', docs);
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalId === model.hospitalId);
+    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username && doc.current === true);
     if (filteredDocs.length > 0) {
       model.setRequests(filteredDocs);
     } else {
