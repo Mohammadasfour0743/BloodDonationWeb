@@ -14,6 +14,7 @@ export const auth = getAuth(app);
 const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
+const COLLECTION3 = 'hospitalApplication';
 
 export async function initAuth(model, watchF) {
   onAuthStateChanged(auth, (user) => {
@@ -170,5 +171,23 @@ export async function updateDetails(model) {
     await updateDoc(docRefDetails, { phone: model.phone, email: model.email });
   } catch (error) {
     console.error('Editing failed', error.message);
+  }
+}
+
+export async function saveApplicationDetails(application) {
+  try {
+    const docRef = doc(db, COLLECTION3, application.id || crypto.randomUUID());
+    await setDoc(docRef, {
+      bloodBankName: application.bloodBankName,
+      hospitalName: application.hospitalName,
+      licenseNumber: application.licenseNumber,
+      registrationNumber: application.registrationNumber,
+      location: application.location,
+      contactEmail: application.contactEmail,
+      contactPhone: application.contactPhone,
+    });
+    console.log('Application saved:', application);
+  } catch (error) {
+    console.error('Error saving application:', error);
   }
 }
