@@ -4,10 +4,13 @@ const model = {
   ready: false,
   id: 'hospitalId',
   username: undefined,
-  location: 'Test location',
+  location: undefined,
   name: 'Hospital 1',
-  email:undefined,
+  email: undefined,
   phone: undefined,
+  longitude: undefined,
+  latitude: undefined,
+  coordinates: undefined,
 
   requests: [],
 
@@ -58,6 +61,13 @@ const model = {
   },
   setRequests(requests) {
     this.requests = requests;
+  },
+
+  setlongitude(longitude) {
+    this.longitude = longitude;
+  },
+  setLatitude(latitude) {
+    this.latitude = latitude;
   },
 };
 
