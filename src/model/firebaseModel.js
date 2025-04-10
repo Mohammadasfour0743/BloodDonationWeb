@@ -88,7 +88,7 @@ export async function saveToFirebase(model) {
       name: model.name,
       location: model.location,
       phone: model.phone,
-      /* email: model.email, */
+      email: model.email,
     });
     console.log('Request successfully saved with ID:', model.id);
   } catch (error) {
@@ -109,6 +109,7 @@ export function getModel(model) {
         model.location = data.location;
         model.name = data.name;
         model.phone = data.phone;
+        model.email = data.email;
       }
       console.log(model.username, model.location);
       model.ready = true;
