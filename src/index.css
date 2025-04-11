@@ -80,7 +80,7 @@ body.no-scroll {
   position: absolute;
   z-index: 11;
   width: 500px;
-  height: 90vh;
+  max-height: 90vh;
   overflow-y: auto;
   overscroll-behavior: contain;  /* prevents scrolling from propagating to the parent */
 
