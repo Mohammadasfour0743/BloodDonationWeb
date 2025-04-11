@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, GeoPoint, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { GeoFirestore } from 'geofirestore';
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
@@ -15,6 +16,7 @@ const db = getFirestore(app);
 const COLLECTION = 'hospitals';
 const COLLECTION2 = 'requests';
 const COLLECTION3 = 'hospitalApplication';
+const geoFirestore = new GeoFirestore(db);
 
 export async function initAuth(model, watchF) {
   onAuthStateChanged(auth, (user) => {
@@ -31,9 +33,9 @@ export async function initAuth(model, watchF) {
 
             model.setlongitude(longitude);
             model.setLatitude(latitude);
-            const coordinates = `${position.coords.latitude}, ${position.coords.longitude}`;
+
             console.log('Longitude:', model.longitude, 'Latitude:', model.latitude);
-            console.log(coordinates);
+
             saveToFirebase(model);
           });
         }
@@ -67,6 +69,7 @@ export async function initAuth(model, watchF) {
       model.email,
       model.longitude,
       model.latitude,
+      model.coordinates,
     ];
   }
   watchF(dataChange, () => saveToFirebase(model));
@@ -137,16 +140,23 @@ export async function saveToFirebase(model) {
       return;
     }
     const docRef = doc(db, COLLECTION, model.username);
-    await setDoc(docRef, {
-      id: model.id,
-      username: model.username,
-      name: model.name,
-      location: model.location,
-      phone: model.phone,
-      email: model.email,
-      longitude: model.longitude,
-      latitude: model.latitude,
-    });
+    //const geoCollection = geoFirestore.collection(COLLECTION);
+    await setDoc(
+      docRef,
+      {
+        id: model.id,
+        username: model.username,
+        name: model.name,
+        location: model.location,
+        phone: model.phone,
+        email: model.email,
+        longitude: model.longitude,
+        latitude: model.latitude,
+        coordinates: new GeoPoint(model.latitude, model.longitude),
+        updatedAt: new Date(),
+      },
+      { merge: true }
+    );
     console.log('Request successfully saved with ID:', model.id);
     console.log('location: ', model.location);
   } catch (error) {
@@ -181,18 +191,28 @@ export function getModel(model) {
     });
 }
 
-export async function saveRequests(request) {
+export async function saveRequests(request, model) {
   try {
     const docRef = doc(db, COLLECTION2, request.id);
-    await setDoc(docRef, {
-      id: request.id,
-      urgency: request.urgency,
-      bloodTypes: request.bloodTypes,
-      amount: request.amount,
-      description: request.description,
-      current: request.current,
-      hospitalName: request.hospitalName,
-    });
+
+    // const geoCollection = geoFirestore.collection(COLLECTION);
+
+    await setDoc(
+      docRef,
+      {
+        id: request.id,
+        urgency: request.urgency,
+        bloodTypes: request.bloodTypes,
+        amount: request.amount,
+        description: request.description,
+        current: request.current,
+        hospitalName: request.hospitalName,
+        coordinates: new GeoPoint(model.latitude, model.longitude),
+        updatedAt: new Date(),
+      },
+      { merge: true }
+    );
+
     console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
     console.error('Error saving request:', error);

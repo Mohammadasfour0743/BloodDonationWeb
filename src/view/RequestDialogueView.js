@@ -25,7 +25,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
     };
     closeEventHandler();
     addRequest(req);
-    saveRequests(req);
+    saveRequests(req, reactiveModel);
   }
 
   function toggleBloodType(option) {
