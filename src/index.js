@@ -7,7 +7,7 @@ import { model } from './model/model.js';
 import HospitalProfile from './routes/HospitalProfile.js';
 import LoginPage from './routes/LoginPage.js';
 
-configure({ enforceActions: 'always' });
+configure({ enforceActions: 'never' });
 const reactiveModel = observable(model);
 
 global.myModel = reactiveModel;
