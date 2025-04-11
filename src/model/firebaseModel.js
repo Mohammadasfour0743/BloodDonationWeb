@@ -155,6 +155,7 @@ export async function saveRequests(request) {
   try {
     const docRef = doc(db, COLLECTION2, request.id);
     await setDoc(docRef, {
+      id: request.id,
       urgency: request.urgency,
       bloodTypes: request.bloodTypes,
       amount: request.amount,
@@ -170,7 +171,9 @@ export async function saveRequests(request) {
 
 export async function removeReq(request) {
   try {
-    const docRef = doc(db, COLLECTION2, request.id);
+    console.log(request);
+    const docRef = doc(db, COLLECTION2, request);
+
     await updateDoc(docRef, { current: false });
     console.log('Request successfully removed:', request.id);
   } catch (error) {
