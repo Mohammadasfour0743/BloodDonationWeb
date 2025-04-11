@@ -194,12 +194,13 @@ export function getModel(model) {
 export async function saveRequests(request, model) {
   try {
     const docRef = doc(db, COLLECTION2, request.id);
-<<<<<<< HEAD
+
     // const geoCollection = geoFirestore.collection(COLLECTION);
 
     await setDoc(
       docRef,
       {
+        id: request.id,
         urgency: request.urgency,
         bloodTypes: request.bloodTypes,
         amount: request.amount,
@@ -211,17 +212,7 @@ export async function saveRequests(request, model) {
       },
       { merge: true }
     );
-=======
-    await setDoc(docRef, {
-      id: request.id,
-      urgency: request.urgency,
-      bloodTypes: request.bloodTypes,
-      amount: request.amount,
-      description: request.description,
-      current: request.current,
-      hospitalName: request.hospitalName,
-    });
->>>>>>> dev
+
     console.log('Request successfully saved with ID:', request.id);
   } catch (error) {
     console.error('Error saving request:', error);
