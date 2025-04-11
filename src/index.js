@@ -6,6 +6,7 @@ import { fetchreq, initAuth, saveToFirebase } from './model/firebaseModel.js';
 import { model } from './model/model.js';
 import HospitalProfile from './routes/HospitalProfile.js';
 import LoginPage from './routes/LoginPage.js';
+import DonationHistory from './routes/DonationHistory.js';
 
 configure({ enforceActions: 'never' });
 const reactiveModel = observable(model);
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: '/hospitalprofile',
     element: <HospitalProfile model={reactiveModel} />,
+  },
+  {
+    path: '/donationHistory',
+    element: <DonationHistory model={reactiveModel} />,
   },
 ]);
 

@@ -5,7 +5,7 @@ import { CurrentRequests } from '../presenter/CurrentRequests';
 import { MdOutlineMailOutline } from 'react-icons/md';
 import { MdOutlineLocalPhone } from 'react-icons/md';
 import { EditDialogue } from '../presenter/EditDialogueButton';
-import { Navigate } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { MdLogout } from 'react-icons/md';
 import { signOutUser } from '../model/firebaseModel';
 import { reactiveModel } from '..';
@@ -22,8 +22,12 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
   return (
     <div>
       <header className="mainHeader">
-        <GiHamburgerMenu color="white" size={35} />
-
+        <div className="tabs">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsOXAO2AE1cxIe6KztXTbGRJXHvPGXcM6LNQ&s" />
+          <Link to="/hospitalProfile">Current requests</Link>
+          <Link to="/donationHistory">Donation history</Link>
+          <a>About us</a>
+        </div>
         <MdLogout
           className="logoutButton"
           size={25}
