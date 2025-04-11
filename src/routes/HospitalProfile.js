@@ -21,8 +21,9 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
   return (
     <div>
       <header className="mainHeader">
-        <GiHamburgerMenu color="white" size={35} />
-
+        <span>Current requests</span>
+        <span>Donation history</span>
+        <span>About us</span>
         <MdLogout
           className="logoutButton"
           size={25}
