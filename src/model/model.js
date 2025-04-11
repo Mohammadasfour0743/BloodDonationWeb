@@ -2,10 +2,10 @@ import { saveRequests } from './firebaseModel';
 
 const model = {
   ready: false,
-  id: 'hospitalId',
+  id: undefined,
   username: undefined,
   location: undefined,
-  name: 'Hospital 1',
+  name: undefined,
   email: undefined,
   phone: undefined,
   longitude: undefined,
@@ -68,6 +68,9 @@ const model = {
   },
   setLatitude(latitude) {
     this.latitude = latitude;
+  },
+  clearRequests() {
+    this.requests = [];
   },
 };
 

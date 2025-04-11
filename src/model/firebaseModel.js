@@ -20,10 +20,9 @@ export async function initAuth(model, watchF) {
   onAuthStateChanged(auth, (user) => {
     try {
       if (user) {
-        model.id = user.email;
         model.username = user.email;
         getModel(model);
-        fetchreq(model);
+        console.log(model);
         console.log('Authenticated user:', user.email);
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition((position) => {
@@ -38,10 +37,19 @@ export async function initAuth(model, watchF) {
             saveToFirebase(model);
           });
         }
+        fetchreq(model);
       } else {
-        model.id = null;
-        model.username = null;
         console.log('User signed out.');
+        model.id = null;
+
+        model.name = null;
+        model.location = null;
+        model.username = null;
+        model.phone = null;
+        model.email = null;
+        model.longitude = null;
+        model.latitude = null;
+        model.clearRequests();
       }
       model.ready = true;
     } catch (error) {
@@ -89,9 +97,18 @@ export async function register(email, password) {
   }
 }
 
-export async function signOutUser() {
+export async function signOutUser(model) {
   try {
     await signOut(auth);
+    model.id = null;
+    model.username = null;
+    model.location = null;
+    model.name = null;
+    model.email = null;
+    model.phone = null;
+    model.longitude = null;
+    model.latitude = null;
+    model.coordinates = null;
     console.log('User signed out.');
   } catch (error) {
     console.error('Error signing out:', error.message);
@@ -99,8 +116,19 @@ export async function signOutUser() {
 }
 
 export async function saveToFirebase(model) {
+  if (!auth.currentUser) return;
   try {
-    if (!model.username || !model.ready) {
+    if (
+      !model.username ||
+      !model.ready ||
+      !model.id ||
+      !model.name ||
+      !model.email ||
+      !model.phone ||
+      !model.location ||
+      !model.longitude ||
+      !model.latitude
+    ) {
       console.error('No username');
       return;
     }
@@ -143,7 +171,9 @@ export function getModel(model) {
         if (data.longitude) data.longitude = model.longitude;
         if (data.latitude) data.latitude = model.latitude;
       }
-      console.log(model.username, model.longitude, model.latitude);
+      console.log('sdfdsfsgdsgvh tyejdfttb zybn');
+
+      console.log(model);
       model.ready = true;
     })
     .catch((error) => {
@@ -185,14 +215,11 @@ export async function fetchreq(model) {
   try {
     const querySnapshot = await getDocs(collection(db, COLLECTION2));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log('Fetched documents:', docs);
 
     const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username && doc.current === true);
-    if (filteredDocs.length > 0) {
-      model.setRequests(filteredDocs);
-    } else {
-      console.log('No data detected');
-    }
+    console.log('Fetched documents:', filteredDocs);
+
+    model.setRequests(filteredDocs);
   } catch (error) {
     console.error('Error fetching request:', error);
   }
