@@ -1,18 +1,37 @@
 import { saveRequests } from './firebaseModel';
 
 const model = {
-  id: 'hospitalId',
-  location: 'Test location',
-  name: 'Hospital 1',
-  contact: {
-    email: 'hospital@email.com',
-    phone: '+46 20 123 4567',
-  },
+  ready: false,
+  id: undefined,
+  username: undefined,
+  location: undefined,
+  name: undefined,
+  email: undefined,
+  phone: undefined,
+  longitude: undefined,
+  latitude: undefined,
+  coordinates: undefined,
+
   requests: [],
 
+  setEmail(email) {
+    this.email = email;
+  },
+  setPhone(phone) {
+    this.phone = phone;
+  },
   setId(id) {
     this.id = id;
   },
+
+  setUsername(username) {
+    this.username = username;
+  },
+
+  setPassword(password) {
+    this.password = password;
+  },
+
   setLocation(location) {
     this.location = location;
   },
@@ -42,6 +61,16 @@ const model = {
   },
   setRequests(requests) {
     this.requests = requests;
+  },
+
+  setlongitude(longitude) {
+    this.longitude = longitude;
+  },
+  setLatitude(latitude) {
+    this.latitude = latitude;
+  },
+  clearRequests() {
+    this.requests = [];
   },
 };
 

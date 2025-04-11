@@ -13,7 +13,6 @@ export function CurrentRequestsView({ requests, deactivateRequest, hospitalName 
             idx={idx}
           />
         ))}
-        <button>Donation history</button>
       </div>
     </div>
   );

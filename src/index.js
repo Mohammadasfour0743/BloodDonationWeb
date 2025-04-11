@@ -2,12 +2,13 @@ import { configure, observable, reaction } from 'mobx';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import './index.css';
-import { fetchreq, persistFirebase } from './model/firebaseModel.js';
+import { fetchreq, initAuth, saveToFirebase } from './model/firebaseModel.js';
 import { model } from './model/model.js';
 import HospitalProfile from './routes/HospitalProfile.js';
 import LoginPage from './routes/LoginPage.js';
+import DonationHistory from './routes/DonationHistory.js';
 
-configure({ enforceActions: 'always' });
+configure({ enforceActions: 'never' });
 const reactiveModel = observable(model);
 
 global.myModel = reactiveModel;
@@ -21,15 +22,18 @@ const router = createBrowserRouter([
     path: '/hospitalprofile',
     element: <HospitalProfile model={reactiveModel} />,
   },
+  {
+    path: '/donationHistory',
+    element: <DonationHistory model={reactiveModel} />,
+  },
 ]);
 
 const root = document.getElementById('root');
 
 //getModel();
 
-fetchreq(reactiveModel)
-
-persistFirebase(reactiveModel, reaction); 
+initAuth(reactiveModel, reaction);
+fetchreq(reactiveModel);
 
 /* getModel(); */
 
@@ -43,7 +47,5 @@ persistFirebase(reactiveModel, reaction);
 };
 saveRequests(testRequest); */
 
-
 ReactDOM.createRoot(root).render(<RouterProvider router={router} />);
 export { reactiveModel };
-

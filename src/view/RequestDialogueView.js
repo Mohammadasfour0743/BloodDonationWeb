@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
+import { reactiveModel } from '..';
+import { sendNotifications } from '../model/notifications.js';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
 export function RequestDialogueView({ closeEventHandler, addRequest, hospitalName, hospitalLocation, hospitalEmail }) {
-  const [bloodType, setBloodType] = useState('');
+  const [bloodTypes, setBloodTypes] = useState([]);
   const [isUrgent, setUrgent] = useState(false);
   const [notes, setNotes] = useState('');
   const [amount, setAmount] = useState(1);
@@ -14,16 +16,30 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
     const id = crypto.randomUUID();
     const req = {
       id,
-      hospitalName,
-      bloodType,
+      hospitalName: reactiveModel.username,
+      hospitalId: reactiveModel.id,
+      bloodTypes: bloodTypes,
       urgency: isUrgent,
       description: notes,
       amount,
-      current : true,
-    }
+      current: true,
+    };
     closeEventHandler();
     addRequest(req);
-    saveRequests(req);
+    saveRequests(req, reactiveModel);
+    sendNotifications('d@d.com', 'We want bloooood', 'All the blood, please, especially the:' + bloodTypes, id);
+  }
+
+  function toggleBloodType(option) {
+    setBloodTypes((prev) => {
+      if (prev.includes(option)) {
+        console.log(prev.filter((el) => el !== option));
+        return prev.filter((el) => el !== option);
+      } else {
+        console.log([...prev, option]);
+        return [...prev, option];
+      }
+    });
   }
 
   return (
@@ -68,10 +84,10 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
               <label className="radio-option" key={index}>
                 <input
                   type="radio"
-                  name="customRadio"
+                  name={'customRadio' + index}
                   value={option}
-                  checked={bloodType === option}
-                  onChange={() => setBloodType(option)}
+                  checked={bloodTypes.includes(option)}
+                  onChange={() => toggleBloodType(option)}
                 />
                 <span className="custom-radio"></span>
                 {option}
