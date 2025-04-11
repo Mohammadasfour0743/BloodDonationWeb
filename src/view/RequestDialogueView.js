@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
 import { reactiveModel } from '..';
+import { sendNotifications } from '../model/notifications.js';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
@@ -26,6 +27,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
     closeEventHandler();
     addRequest(req);
     saveRequests(req);
+    sendNotifications('d@d.com', 'We want bloooood', 'All the blood, please, especially the:' + bloodTypes, id);
   }
 
   function toggleBloodType(option) {
