@@ -120,6 +120,7 @@ export async function signOutUser(model) {
 
 export async function saveToFirebase(model) {
   if (!auth.currentUser) return;
+
   try {
     if (
       !model.username ||
@@ -140,6 +141,7 @@ export async function saveToFirebase(model) {
       return;
     }
     const docRef = doc(db, COLLECTION, model.username);
+    console.log('saving');
     //const geoCollection = geoFirestore.collection(COLLECTION);
     await setDoc(
       docRef,
@@ -165,21 +167,22 @@ export async function saveToFirebase(model) {
 }
 
 export function getModel(model) {
+  console.log(model.username);
   const docRef = doc(db, COLLECTION, model.username);
   model.ready = false;
   getDoc(docRef)
     .then((snapshot) => {
       const data = snapshot.exists() ? snapshot.data() : null;
 
-      console.log('Raw data from Firestore:', data);
+      console.log('Raw data from Firestore:', data.latitude);
       if (data) {
         model.id = data.id;
         model.location = data.location;
         model.name = data.name;
         model.phone = data.phone;
         model.email = data.email;
-        if (data.longitude) data.longitude = model.longitude;
-        if (data.latitude) data.latitude = model.latitude;
+        if (data.longitude) model.longitude = data.longitude;
+        if (data.latitude) model.latitude = data.latitude;
       }
       console.log('sdfdsfsgdsgvh tyejdfttb zybn');
 
@@ -236,7 +239,7 @@ export async function fetchreq(model) {
     const querySnapshot = await getDocs(collection(db, COLLECTION2));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username && doc.current === true);
+    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username);
     console.log('Fetched documents:', filteredDocs);
 
     model.setRequests(filteredDocs);

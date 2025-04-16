@@ -30,7 +30,7 @@ const DonationHistory = observer(function DonationHistory({ model }) {
           }}
         />
       </header>
-      <DonationHistoryTable />
+      <DonationHistoryTable model={model} />
     </div>
   );
 });
