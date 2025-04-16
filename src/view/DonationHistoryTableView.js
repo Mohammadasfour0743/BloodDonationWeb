@@ -1,4 +1,8 @@
 export function DonationHistoryTableView({ requests }) {
+  function renderRequestRow(request) {
+    return <div></div>;
+  }
+
   return (
     <div>
       <div>
@@ -12,6 +16,7 @@ export function DonationHistoryTableView({ requests }) {
           <h3>Date deleted</h3>
           <h3>Response count</h3>
         </div>
+        {requests.map(renderRequestRow)}
       </div>
     </div>
   );

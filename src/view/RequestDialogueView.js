@@ -27,7 +27,7 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
     closeEventHandler();
     addRequest(req);
     saveRequests(req, reactiveModel);
-    sendNotifications('d@d.com', 'We want bloooood', 'All the blood, please, especially the:' + bloodTypes, id);
+    sendNotifications('We want bloooood', 'All the blood, please, especially the:' + bloodTypes, id);
   }
 
   function toggleBloodType(option) {

@@ -1,8 +1,6 @@
-export function sendNotifications(userid, title, message, requestId) {
+export function sendNotifications(title, message, requestId) {
   fetch(
-    'https://pushnotificationsserver-production.up.railway.app/send-notification?userid=' +
-      userid +
-      '&title= ' +
+    'https://pushnotificationsserver-production.up.railway.app/send-specific-notification?title= ' +
       title +
       ' &message=' +
       message +
