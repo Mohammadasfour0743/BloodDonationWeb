@@ -21,6 +21,7 @@ export const RequestDialogue = observer(function RequestDialogue({ model }) {
         hospitalEmail={model.email}
         hospitalLocation={model.location}
         addRequest={(req) => model.addRequest(req)}
+        reactiveModel={model}
       />
     );
   }

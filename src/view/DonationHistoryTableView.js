@@ -1,16 +1,43 @@
-const rows = [0, 1, 2, 3, 4, 5, 6];
+export function DonationHistoryTableView({ requests }) {
+  function UrgentBox() {
+    return (
+      <div className="donation-history-col3">
+        <h3 className="donation-history-type-text donation-history-urgent-box ">Urgent</h3>
+      </div>
+    );
+  }
 
-export function DonationHistoryTableView() {
+  function renderRequestRow(request) {
+    return (
+      <div className="donation-history-table-row">
+        <h3 className="donation-history-col1 donation-item-id">{request.id.substr(0, 13)}...</h3>
+        <h3 className="donation-history-col2">{request.bloodTypes.reduce((acc, curr) => curr + ' ' + acc, '')}</h3>
+        {request.urgency ? (
+          <UrgentBox />
+        ) : (
+          <h3 className="donation-history-col3 donation-history-type-text">Non-urgent</h3>
+        )}
+        <h3 className="donation-history-col4">{'27/03/2025'}</h3>
+        <h3 className="donation-history-col5">{'2'} responses</h3>
+      </div>
+    );
+  }
+
   return (
-    <div>
-      <h1>Donation History</h1>
-      {rows
-        .filter((val) => {
-          return val % 2 === 0;
-        })
-        .map((value) => (
-          <div>Row {value}</div>
-        ))}
+    <div className="donation-history-page">
+      <div className="donation-history-header">
+        <h1>Donation History</h1>
+      </div>
+      <div className="donation-history-table">
+        <div className="donation-history-table-header">
+          <h3 className="donation-history-col1">ID</h3>
+          <h3 className="donation-history-col2">Blood Type(s)</h3>
+          <h3 className="donation-history-col3">Type</h3>
+          <h3 className="donation-history-col4">Date deleted</h3>
+          <h3 className="donation-history-col5">Response count</h3>
+        </div>
+        <div className="donation-history-body">{requests.map(renderRequestRow)}</div>
+      </div>
     </div>
   );
 }

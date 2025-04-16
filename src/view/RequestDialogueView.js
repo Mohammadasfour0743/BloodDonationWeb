@@ -1,12 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
-import { reactiveModel } from '..';
 import { sendNotifications } from '../model/notifications.js';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
-export function RequestDialogueView({ closeEventHandler, addRequest, hospitalName, hospitalLocation, hospitalEmail }) {
+export function RequestDialogueView({
+  closeEventHandler,
+  addRequest,
+  hospitalName,
+  hospitalLocation,
+  hospitalEmail,
+  reactiveModel,
+}) {
   const [bloodTypes, setBloodTypes] = useState([]);
   const [isUrgent, setUrgent] = useState(false);
   const [notes, setNotes] = useState('');
@@ -23,11 +29,13 @@ export function RequestDialogueView({ closeEventHandler, addRequest, hospitalNam
       description: notes,
       amount,
       current: true,
+      latitude: reactiveModel.latitude,
+      longitude: reactiveModel.longitude,
     };
     closeEventHandler();
     addRequest(req);
-    saveRequests(req, reactiveModel);
-    sendNotifications('d@d.com', 'We want bloooood', 'All the blood, please, especially the:' + bloodTypes, id);
+    saveRequests(req);
+    sendNotifications(id);
   }
 
   function toggleBloodType(option) {
