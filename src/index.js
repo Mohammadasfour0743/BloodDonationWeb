@@ -8,7 +8,7 @@ import HospitalProfile from './routes/HospitalProfile.js';
 import LoginPage from './routes/LoginPage.js';
 import DonationHistory from './routes/DonationHistory.js';
 
-configure({ enforceActions: 'always' });
+configure({ enforceActions: 'never' });
 const reactiveModel = observable(model);
 
 global.myModel = reactiveModel;
