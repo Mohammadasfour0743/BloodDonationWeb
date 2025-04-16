@@ -210,7 +210,8 @@ export async function saveRequests(request, model) {
         description: request.description,
         current: request.current,
         hospitalName: request.hospitalName,
-        coordinates: new GeoPoint(model.latitude, model.longitude),
+        latitude: request.latitude,
+        longitude: request.longitude,
         updatedAt: new Date(),
       },
       { merge: true }
