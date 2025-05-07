@@ -33,7 +33,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
           size={25}
           color="white"
           onClick={() => {
-            signOutUser(reactiveModel);
+            signOutUser();
           }}
         />
       </header>
