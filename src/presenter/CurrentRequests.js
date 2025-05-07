@@ -9,6 +9,7 @@ export const CurrentRequests = observer(function CurrentRequests({ model }) {
       })}
       hospitalName={model.name}
       deactivateRequest={(id) => model.deactivateRequest(id)}
+      model={model}
     />
   );
 });

@@ -1,6 +1,12 @@
+import { observer } from 'mobx-react-lite';
 import { CurrentRequestItem } from '../presenter/CurrentRequestItem';
 
-export function CurrentRequestsView({ requests, deactivateRequest, hospitalName }) {
+export const CurrentRequestsView = observer(function CurrentRequestsView({
+  requests,
+  deactivateRequest,
+  hospitalName,
+  model,
+}) {
   return (
     <div className="current-requests">
       <div className="current-requests-content">
@@ -11,9 +17,10 @@ export function CurrentRequestsView({ requests, deactivateRequest, hospitalName 
             request={request}
             deactivateRequest={deactivateRequest}
             idx={idx}
+            responses={model.getResponses(request.id).length}
           />
         ))}
       </div>
     </div>
   );
-}
+});
