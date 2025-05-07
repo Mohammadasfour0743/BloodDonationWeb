@@ -1,16 +1,20 @@
 import { FaChevronDown } from 'react-icons/fa';
 import { FaChevronUp } from 'react-icons/fa';
-import { IoClose } from 'react-icons/io5';
+import { AreYouSureDialog } from '../presenter/AreYouSureDialog';
+import { observer } from 'mobx-react-lite';
 
-export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, setOpen, removeItem, responses }) {
-  console.log(responses);
+export const CurrentRequestItemView = observer(function CurrentRequestItemView({
+  request,
+  hospitalName,
+  idx,
+  isOpen,
+  setOpen,
+  removeItem,
+  responses,
+  model,
+}) {
   function onItemPressed() {
     setOpen((state) => !state);
-  }
-
-  function onRemovePressed(event) {
-    event.stopPropagation();
-    removeItem(request.id);
   }
 
   return (
@@ -35,16 +39,16 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
         {!isOpen && <FaChevronDown size={25} />}
         {isOpen && <FaChevronUp size={25} />}
       </div>
-      {isOpen && (
-        <div className="description">
-          <h3>Notes</h3>
-          <p>{request.description}</p>
-        </div>
-      )}
-      <p className="id">ID {request.id}</p>
-      <div onClick={onRemovePressed} className="remove-request">
-        <IoClose size={26} />
+      <div className={`description-wrapper ${isOpen && 'open'}`}>
+        {isOpen && (
+          <div className="description">
+            <h3>Notes</h3>
+            <p>{request.description}</p>
+          </div>
+        )}
       </div>
+      <p className="id">ID {request.id}</p>
+      <AreYouSureDialog removeItem={removeItem} model={model} requestId={request.id} />
     </div>
   );
-}
+});

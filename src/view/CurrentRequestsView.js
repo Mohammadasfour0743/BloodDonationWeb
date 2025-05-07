@@ -13,6 +13,7 @@ export const CurrentRequestsView = observer(function CurrentRequestsView({
         <h1>Current requests</h1>
         {requests.map((request, idx) => (
           <CurrentRequestItem
+            model={model}
             hospitalName={hospitalName}
             request={request}
             deactivateRequest={deactivateRequest}
