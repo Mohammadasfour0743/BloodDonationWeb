@@ -1,4 +1,3 @@
-import { CiCirclePlus } from 'react-icons/ci';
 import { MdOutlineModeEdit } from 'react-icons/md';
 
 export function EditDialogueButtonView({ clickEventHandler }) {

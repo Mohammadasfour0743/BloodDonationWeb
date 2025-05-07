@@ -21,9 +21,39 @@ body.no-scroll {
 }
 
 
+
+
 :root {
   --primary-color: #780000;
   --Secondary-color: #b47f7f;
+}
+
+.areYouSureHeader {
+  flex-direction: column !important;
+  margin-bottom: 30px;
+}
+
+.areYouSureTitle {
+  text-transform: none !important;
+  font-weight: 500 !important;
+}
+
+.areYouSureHeader p {
+  font-size: 18px;
+  text-align: center;
+  margin: 0 20px;
+  font-weight: normal;
+}
+
+.areYouSureSubmitContainer {
+  display: flex;
+  gap: 15px;
+  flex-direction: row !important;
+}
+
+.areYouSureNoButton {
+  background-color: #c9c9c9 !important;
+  color: black !important;
 }
 
 .button {
@@ -45,6 +75,7 @@ body.no-scroll {
   flex-direction: row;
   height: 100vh;
 }
+
 
 .requestDialogueButton {
   background-color: transparent;
@@ -75,6 +106,7 @@ body.no-scroll {
   top: 0;
   left: 0;
 }
+
 
 .requestForm {
   position: absolute;
@@ -391,7 +423,6 @@ body.no-scroll {
   width: 100%;
   cursor: pointer;
   background-color: #e9e9e9;
-  z-index: 0;
 }
 
 .current-request-item-content {
