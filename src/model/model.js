@@ -13,6 +13,7 @@ const model = {
   coordinates: undefined,
 
   requests: [],
+  responses: {},
 
   setEmail(email) {
     this.email = email;
@@ -62,7 +63,20 @@ const model = {
   setRequests(requests) {
     this.requests = requests;
   },
+  setResponses(responses) {
+    responses.forEach((response) => {
+      const oldResponses = this.getResponses(response.requestId) ?? [];
+      const newResponses = [...oldResponses, response];
 
+      this.responses = {
+        ...this.responses,
+        [response.requestId]: newResponses,
+      };
+    });
+  },
+  getResponses(requestId) {
+    return this.responses[requestId] ?? [];
+  },
   setlongitude(longitude) {
     this.longitude = longitude;
   },
@@ -84,6 +98,7 @@ const model = {
     this.latitude = undefined;
     this.coordinates = undefined;
     this.requests = [];
+    this.response = [];
     this.ready = true;
   },
 };

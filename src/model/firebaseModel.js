@@ -14,6 +14,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const HOSPITALS_COLLECTION = 'hospitals';
 const REQUESTS_COLLECTION = 'requests';
+const RESPONSES_COLLECTION = 'responses';
 const APPLICATIONS_COLLECTION = 'hospitalApplication';
 
 function updateLocation(model) {
@@ -36,16 +37,16 @@ function updateLocation(model) {
 }
 
 function logoutUserFromModel(model) {
-  model.clearModel();
+  model.clearModel(model);
   model.username = null;
 }
 
 export async function initAuth(model) {
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     try {
       if (user) {
         model.username = user.email;
-        getModel(model);
+        await getModel(model);
         updateLocation(model);
         fetchRequests(model);
       } else {
@@ -118,25 +119,27 @@ export async function saveToFirebase(model) {
   }
 }
 
-export function getModel(model) {
+export async function getModel(model) {
   const docRef = doc(db, HOSPITALS_COLLECTION, model.username);
   model.ready = false;
-  getDoc(docRef)
-    .then((snapshot) => {
-      const data = snapshot.exists() ? snapshot.data() : null;
-
-      if (data) {
-        if (data.id) model.id = data.id;
-        if (data.phone) model.phone = data.phone;
-        if (data.email) model.email = data.email;
-        if (data.longitude) model.longitude = data.longitude;
-        if (data.latitude) model.latitude = data.latitude;
-      }
-      model.ready = true;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  try {
+    const snapshot = await getDoc(docRef);
+    const data = snapshot.exists() ? snapshot.data() : null;
+    console.log(model.username);
+    console.log('from ' + docRef.path);
+    console.log(data);
+    console.log(data.phone);
+    if (data) {
+      if (data.id) model.id = data.id;
+      if (data.phone) model.phone = data.phone;
+      if (data.email) model.email = data.email;
+      if (data.longitude) model.longitude = data.longitude;
+      if (data.latitude) model.latitude = data.latitude;
+    }
+    model.ready = true;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function saveRequests(request, model) {
@@ -187,10 +190,24 @@ export async function fetchRequests(model) {
     console.log('Fetched documents:', filteredDocs);
 
     model.setRequests(filteredDocs);
+    fetchResponses(model);
   } catch (error) {
     console.error('Error fetching request:', error);
   } finally {
     module.ready = true;
+  }
+}
+
+export async function fetchResponses(model) {
+  model.ready = false;
+  try {
+    const querySnapshot = await getDocs(collection(db, RESPONSES_COLLECTION));
+    const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    model.setResponses(docs);
+  } catch (error) {
+    console.log('Error fetching respones', error);
+  } finally {
+    model.ready = true;
   }
 }
 

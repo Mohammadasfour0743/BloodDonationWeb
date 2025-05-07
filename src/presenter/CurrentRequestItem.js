@@ -8,6 +8,7 @@ export const CurrentRequestItem = observer(function CurrentRequestItem({
   request,
   idx,
   hospitalName,
+  responses,
 }) {
   const [isOpen, setOpen] = useState(false);
 
@@ -19,6 +20,7 @@ export const CurrentRequestItem = observer(function CurrentRequestItem({
   return (
     <CurrentRequestItemView
       request={request}
+      responses={responses}
       idx={idx}
       isOpen={isOpen}
       setOpen={setOpen}

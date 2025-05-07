@@ -2,7 +2,8 @@ import { FaChevronDown } from 'react-icons/fa';
 import { FaChevronUp } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
-export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, setOpen, removeItem }) {
+export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, setOpen, removeItem, responses }) {
+  console.log(responses);
   function onItemPressed() {
     setOpen((state) => !state);
   }
@@ -12,7 +13,6 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
     removeItem(request.id);
   }
 
-  console.log(request);
   return (
     <div onClick={onItemPressed} className="current-request-item" key={idx}>
       <div className="top-left">
@@ -22,7 +22,7 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
           </div>
         )}
         <div className="responses">
-          <p>2 responses</p>
+          <p>{responses} responses</p>
         </div>
       </div>
       <div className="current-request-item-content">
