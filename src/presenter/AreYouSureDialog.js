@@ -6,7 +6,8 @@ import { AreYouSureDialogButtonView } from '../view/AreYouSureDialogButtonView';
 export const AreYouSureDialog = observer(function AreYouSureDialog({ model, removeItem, requestId }) {
   const [dialogueOpen, setDialogueOpen] = useState(false);
 
-  function onYesClicked() {
+  function onYesClicked(event) {
+    event.stopPropagation();
     setDialogueOpen(false);
     removeItem(requestId);
   }

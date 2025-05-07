@@ -15,7 +15,7 @@ export function AreYouSureDialogView({ removeRequest, closeEventHandler }) {
           <button onClick={closeEventHandler} className="formSubmit areYouSureNoButton">
             No, go back
           </button>
-          <button onClick={() => removeRequest()} className="formSubmit">
+          <button onClick={(event) => removeRequest(event)} className="formSubmit">
             Yes, cancel
           </button>
         </div>
