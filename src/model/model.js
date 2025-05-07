@@ -72,6 +72,20 @@ const model = {
   clearRequests() {
     this.requests = [];
   },
+  clearModel() {
+    this.ready = false;
+    this.id = undefined;
+    this.username = undefined;
+    this.location = undefined;
+    this.name = undefined;
+    this.email = undefined;
+    this.phone = undefined;
+    this.longitude = undefined;
+    this.latitude = undefined;
+    this.coordinates = undefined;
+    this.requests = [];
+    this.ready = true;
+  },
 };
 
 export { model };

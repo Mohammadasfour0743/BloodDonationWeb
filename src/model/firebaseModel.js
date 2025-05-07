@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, GeoPoint, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -8,71 +8,53 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { GeoFirestore } from 'geofirestore';
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+const auth = getAuth(app);
 const db = getFirestore(app);
-const COLLECTION = 'hospitals';
-const COLLECTION2 = 'requests';
-const COLLECTION3 = 'hospitalApplication';
-const geoFirestore = new GeoFirestore(db);
+const HOSPITALS_COLLECTION = 'hospitals';
+const REQUESTS_COLLECTION = 'requests';
+const APPLICATIONS_COLLECTION = 'hospitalApplication';
 
-export async function initAuth(model, watchF) {
+function updateLocation(model) {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('yes');
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        model.setlongitude(longitude);
+        model.setLatitude(latitude);
+        console.log(longitude, latitude);
+        saveToFirebase(model);
+      },
+      (err) => {
+        console.log('Error fetching location', err);
+      }
+    );
+  }
+}
+
+function logoutUserFromModel(model) {
+  model.clearModel();
+  model.username = null;
+}
+
+export async function initAuth(model) {
   onAuthStateChanged(auth, (user) => {
     try {
       if (user) {
         model.username = user.email;
         getModel(model);
-        console.log(model);
-        console.log('Authenticated user:', user.email);
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((position) => {
-            const longitude = position.coords.longitude;
-            const latitude = position.coords.latitude;
-
-            model.setlongitude(longitude);
-            model.setLatitude(latitude);
-
-            console.log('Longitude:', model.longitude, 'Latitude:', model.latitude);
-
-            saveToFirebase(model);
-          });
-        }
-        fetchreq(model);
+        updateLocation(model);
+        fetchRequests(model);
       } else {
-        console.log('User signed out.');
-        model.id = null;
-
-        model.name = null;
-        model.location = null;
-        model.username = null;
-        model.phone = null;
-        model.email = null;
-        model.longitude = null;
-        model.latitude = null;
-        model.clearRequests();
+        logoutUserFromModel(model);
       }
-      model.ready = true;
     } catch (error) {
       console.error('Error in auth state change:', error.message);
     }
   });
-
-  function dataChange() {
-    return [
-      model.id,
-      model.name,
-      model.location,
-      model.username,
-      model.phone,
-      model.email,
-      model.longitude,
-      model.latitude,
-      model.coordinates,
-    ];
-  }
-  watchF(dataChange, () => saveToFirebase(model));
 }
 
 export async function signIn(email, password) {
@@ -100,19 +82,10 @@ export async function register(email, password) {
   }
 }
 
-export async function signOutUser(model) {
+export async function signOutUser() {
   try {
     await signOut(auth);
-    model.id = null;
-    model.username = null;
-    model.location = null;
-    model.name = null;
-    model.email = null;
-    model.phone = null;
-    model.longitude = null;
-    model.latitude = null;
-    model.coordinates = null;
-    console.log('User signed out.');
+    logoutUserFromModel();
   } catch (error) {
     console.error('Error signing out:', error.message);
   }
@@ -122,71 +95,43 @@ export async function saveToFirebase(model) {
   if (!auth.currentUser) return;
 
   try {
-    if (
-      !model.username ||
-      !model.ready ||
-      !model.id ||
-      !model.name ||
-      !model.email ||
-      !model.phone ||
-      !model.location ||
-      !model.longitude ||
-      !model.latitude
-    ) {
-      console.error('No username');
+    if (!model.username) {
+      console.error('User is not logged in');
       return;
     }
-    if (!model.longitude || !model.latitude) {
-      console.error('Longitude or latitude is missing');
-      return;
-    }
-    const docRef = doc(db, COLLECTION, model.username);
-    console.log('saving');
-    //const geoCollection = geoFirestore.collection(COLLECTION);
+    const docRef = doc(db, HOSPITALS_COLLECTION, model.username);
     await setDoc(
       docRef,
       {
-        id: model.id,
-        username: model.username,
-        name: model.name,
-        location: model.location,
-        phone: model.phone,
-        email: model.email,
-        longitude: model.longitude,
-        latitude: model.latitude,
-        coordinates: new GeoPoint(model.latitude, model.longitude),
+        ...(model.id != null && { username: model.username }),
+        ...(model.name != null && { name: model.name }),
+        ...(model.phone != null && { phone: model.phone }),
+        ...(model.email != null && { email: model.email }),
+        ...(model.longitude != null && { longitude: model.longitude }),
+        ...(model.latitude != null && { latitude: model.latitude }),
         updatedAt: new Date(),
       },
       { merge: true }
     );
-    console.log('Request successfully saved with ID:', model.id);
-    console.log('location: ', model.location);
   } catch (error) {
     console.error('Error saving request:', error);
   }
 }
 
 export function getModel(model) {
-  console.log(model.username);
-  const docRef = doc(db, COLLECTION, model.username);
+  const docRef = doc(db, HOSPITALS_COLLECTION, model.username);
   model.ready = false;
   getDoc(docRef)
     .then((snapshot) => {
       const data = snapshot.exists() ? snapshot.data() : null;
 
-      console.log('Raw data from Firestore:', data.latitude);
       if (data) {
-        model.id = data.id;
-        model.location = data.location;
-        model.name = data.name;
-        model.phone = data.phone;
-        model.email = data.email;
+        if (data.id) model.id = data.id;
+        if (data.phone) model.phone = data.phone;
+        if (data.email) model.email = data.email;
         if (data.longitude) model.longitude = data.longitude;
         if (data.latitude) model.latitude = data.latitude;
       }
-      console.log('sdfdsfsgdsgvh tyejdfttb zybn');
-
-      console.log(model);
       model.ready = true;
     })
     .catch((error) => {
@@ -196,10 +141,7 @@ export function getModel(model) {
 
 export async function saveRequests(request, model) {
   try {
-    const docRef = doc(db, COLLECTION2, request.id);
-
-    // const geoCollection = geoFirestore.collection(COLLECTION);
-
+    const docRef = doc(db, REQUESTS_COLLECTION, request.id);
     await setDoc(
       docRef,
       {
@@ -226,7 +168,7 @@ export async function saveRequests(request, model) {
 export async function removeReq(request) {
   try {
     console.log(request);
-    const docRef = doc(db, COLLECTION2, request);
+    const docRef = doc(db, REQUESTS_COLLECTION, request);
 
     await updateDoc(docRef, { current: false });
     console.log('Request successfully removed:', request.id);
@@ -235,9 +177,10 @@ export async function removeReq(request) {
   }
 }
 
-export async function fetchreq(model) {
+export async function fetchRequests(model) {
+  model.ready = false;
   try {
-    const querySnapshot = await getDocs(collection(db, COLLECTION2));
+    const querySnapshot = await getDocs(collection(db, REQUESTS_COLLECTION));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
     const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username);
@@ -246,6 +189,8 @@ export async function fetchreq(model) {
     model.setRequests(filteredDocs);
   } catch (error) {
     console.error('Error fetching request:', error);
+  } finally {
+    module.ready = true;
   }
 }
 
@@ -255,8 +200,14 @@ export async function updateDetails(model) {
     return;
   }
   try {
-    const docRefDetails = doc(db, COLLECTION, model.username);
-    await updateDoc(docRefDetails, { phone: model.phone, email: model.email });
+    const docRefDetails = doc(db, HOSPITALS_COLLECTION, model.username);
+    await updateDoc(
+      docRefDetails,
+      { phone: model.phone, email: model.email },
+      {
+        merge: true,
+      }
+    );
   } catch (error) {
     console.error('Editing failed', error.message);
   }
@@ -264,7 +215,7 @@ export async function updateDetails(model) {
 
 export async function saveApplicationDetails(application) {
   try {
-    const docRef = doc(db, COLLECTION3, application.id || crypto.randomUUID());
+    const docRef = doc(db, APPLICATIONS_COLLECTION, application.id || crypto.randomUUID());
     await setDoc(docRef, {
       bloodBankName: application.bloodBankName,
       hospitalName: application.hospitalName,

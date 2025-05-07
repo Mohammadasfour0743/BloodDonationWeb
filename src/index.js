@@ -33,7 +33,6 @@ const root = document.getElementById('root');
 //getModel();
 
 initAuth(reactiveModel, reaction);
-fetchreq(reactiveModel);
 
 /* getModel(); */
 
