@@ -860,3 +860,12 @@ body.no-scroll {
   max-height: 60vh;
   overflow: scroll;
 }
+.description-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease;
+}
+
+.description-wrapper.open {
+  max-height: 500px;
+}

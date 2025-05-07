@@ -3,7 +3,6 @@ import { FaChevronUp } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 
 export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, setOpen, removeItem, responses }) {
-  console.log(responses);
   function onItemPressed() {
     setOpen((state) => !state);
   }
@@ -35,12 +34,14 @@ export function CurrentRequestItemView({ request, hospitalName, idx, isOpen, set
         {!isOpen && <FaChevronDown size={25} />}
         {isOpen && <FaChevronUp size={25} />}
       </div>
-      {isOpen && (
-        <div className="description">
-          <h3>Notes</h3>
-          <p>{request.description}</p>
-        </div>
-      )}
+      <div className={`description-wrapper ${isOpen && 'open'}`}>
+        {isOpen && (
+          <div className="description">
+            <h3>Notes</h3>
+            <p>{request.description}</p>
+          </div>
+        )}
+      </div>
       <p className="id">ID {request.id}</p>
       <div onClick={onRemovePressed} className="remove-request">
         <IoClose size={26} />
