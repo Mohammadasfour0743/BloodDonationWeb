@@ -430,7 +430,7 @@ body.no-scroll {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background-color: #d3c2c2;
+  background-color: #EBD9D9;
   padding: 35px 20px;
   width: 100%;
   border-radius: 20px;
@@ -535,35 +535,37 @@ body.no-scroll {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #f2ecec;
-  width: 100vw;
-  height: 100vh;
+  background-color: #f7f7f7;
+  width: 1300px;
+  height: 700px;
   padding: 70px 100px;
 }
 
 .login-content {
-  width: 80%;
+  width: 90%;
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 30px;
   background-color: white;
   border-radius: 50px;
+  outline-style: solid;
+  outline-color: #9a4040;
+  padding-right: 50px;
 }
 
 .login-image {
-  width: 50%;
+  width: 55%;
   height: 100%;
-  background-image: url(../public/login-img.png);
-  background-position: center;
+  background-image: url(../public/login-illustration.png);
+  background-size: cover;
+  background-position: flex-start;
   background-repeat: no-repeat;
-  border-radius: 20px 0 0 20px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding: 80px;
+  justify-content: flex-start;
+  padding: 10px;
 }
 
 .login-title {
@@ -577,29 +579,31 @@ body.no-scroll {
 }
 
 .login-form {
-  width: 50%;
-  height: 100%;
+  width: 40%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
   padding: 0 20px;
-  border-radius: 0 20px 20px 0;
-  background-color: white;
+  border-radius: 20px;
+  background-color: #e4e4e4;
 }
 
 .login-form h1 {
-  font-size: 45px;
+  font-size: 2.7em;
+  color: #780000;
 }
 
 .login-input-container {
   border-bottom: 1px solid #000000;
-  width: 420px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 10px;
+  background-color: #e4e4e4;
 }
+
 
 .login-input {
   padding: 10px;
@@ -615,17 +619,26 @@ body.no-scroll {
   font-size: 20px;
 }
 
+.login-button:hover {
+  background-color: #e7ca70;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 .login-account {
   display: flex;
   flex-direction: row;
   gap: 10px;
-  width: 425px;
+  width: 100%;
 }
 
 .login-atag {
   text-decoration: underline;
   color: #780000;
   font-weight: 500;
+}
+.login-atag:hover{
+  cursor:pointer;
 }
 
 .login-forgot {
