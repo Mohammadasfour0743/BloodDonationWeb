@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -16,6 +16,8 @@ const HOSPITALS_COLLECTION = 'hospitals';
 const REQUESTS_COLLECTION = 'requests';
 const RESPONSES_COLLECTION = 'responses';
 const APPLICATIONS_COLLECTION = 'hospitalApplication';
+
+let responseSubscription;
 
 function updateLocation(model) {
   if (navigator.geolocation) {
@@ -39,6 +41,7 @@ function updateLocation(model) {
 function logoutUserFromModel(model) {
   model.clearModel(model);
   model.username = null;
+  unsubscribeFromAutomaticResponseUpdates();
 }
 
 export async function initAuth(model) {
@@ -49,6 +52,7 @@ export async function initAuth(model) {
         await getModel(model);
         updateLocation(model);
         fetchRequests(model);
+        handleAutomaticResponseUpdates(model);
       } else {
         logoutUserFromModel(model);
       }
@@ -249,4 +253,21 @@ export async function saveApplicationDetails(application) {
   } catch (error) {
     console.error('Error saving application:', error);
   }
+}
+
+export async function handleAutomaticResponseUpdates(model) {
+  if (responseSubscription) return;
+  responseSubscription = onSnapshot(collection(db, RESPONSES_COLLECTION), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === 'added') {
+        model.addResponse(change.doc.data());
+      }
+    });
+  });
+}
+
+function unsubscribeFromAutomaticResponseUpdates() {
+  if (!responseSubscription) return;
+  responseSubscription();
+  responseSubscription = null;
 }
