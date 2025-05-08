@@ -26,7 +26,6 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
           <img src="/logo5.png" alt="Logo" />
           <Link to="/hospitalProfile">Current requests</Link>
           <Link to="/donationHistory">Donation history</Link>
-          <a>About us</a>
         </div>
         <MdLogout
           className="logoutButton"

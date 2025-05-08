@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
 import { sendNotifications } from '../model/notifications.js';
-import {nanoid} from "nanoid" ;
+import { nanoid } from 'nanoid';
 // do npm install nanoid first
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
@@ -25,6 +25,7 @@ export function RequestDialogueView({
     const req = {
       id,
       hospitalName: reactiveModel.name,
+      hospitalEmail: reactiveModel.email,
       hospitalId: reactiveModel.id,
       bloodTypes: bloodTypes,
       urgency: isUrgent,
@@ -34,6 +35,7 @@ export function RequestDialogueView({
       latitude: reactiveModel.latitude,
       longitude: reactiveModel.longitude,
       location: reactiveModel.location,
+      updatedAt: new Date().toISOString(),
     };
     closeEventHandler();
     addRequest(req);

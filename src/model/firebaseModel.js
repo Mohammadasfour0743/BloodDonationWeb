@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -16,6 +16,8 @@ const HOSPITALS_COLLECTION = 'hospitals';
 const REQUESTS_COLLECTION = 'requests';
 const RESPONSES_COLLECTION = 'responses';
 const APPLICATIONS_COLLECTION = 'hospitalApplication';
+
+let responseSubscription;
 
 function updateLocation(model) {
   if (navigator.geolocation) {
@@ -39,16 +41,19 @@ function updateLocation(model) {
 function logoutUserFromModel(model) {
   model.clearModel(model);
   model.username = null;
+  unsubscribeFromAutomaticResponseUpdates();
 }
 
 export async function initAuth(model) {
   onAuthStateChanged(auth, async (user) => {
     try {
       if (user) {
+        model.email = user.email;
         model.username = user.email;
         await getModel(model);
         updateLocation(model);
         fetchRequests(model);
+        handleAutomaticResponseUpdates(model);
       } else {
         logoutUserFromModel(model);
       }
@@ -110,7 +115,7 @@ export async function saveToFirebase(model) {
         ...(model.email != null && { email: model.email }),
         ...(model.longitude != null && { longitude: model.longitude }),
         ...(model.latitude != null && { latitude: model.latitude }),
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       },
       { merge: true }
     );
@@ -157,9 +162,10 @@ export async function saveRequests(request, model) {
         description: request.description,
         current: request.current,
         hospitalName: request.hospitalName,
+        hospitalEmail: request.hospitalEmail,
         latitude: request.latitude,
         longitude: request.longitude,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
         location: request.location,
       },
       { merge: true }
@@ -189,7 +195,7 @@ export async function fetchRequests(model) {
     const querySnapshot = await getDocs(collection(db, REQUESTS_COLLECTION));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username);
+    const filteredDocs = docs.filter((doc) => doc.hospitalEmail === model.email);
     console.log('Fetched documents:', filteredDocs);
 
     model.setRequests(filteredDocs);
@@ -249,4 +255,21 @@ export async function saveApplicationDetails(application) {
   } catch (error) {
     console.error('Error saving application:', error);
   }
+}
+
+export async function handleAutomaticResponseUpdates(model) {
+  if (responseSubscription) return;
+  responseSubscription = onSnapshot(collection(db, RESPONSES_COLLECTION), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === 'added') {
+        model.addResponse(change.doc.data());
+      }
+    });
+  });
+}
+
+function unsubscribeFromAutomaticResponseUpdates() {
+  if (!responseSubscription) return;
+  responseSubscription();
+  responseSubscription = null;
 }

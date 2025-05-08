@@ -77,6 +77,15 @@ const model = {
   getResponses(requestId) {
     return this.responses[requestId] ?? [];
   },
+  addResponse(response) {
+    const reqId = response.requestId;
+    const oldResponses = this.getResponses(reqId) ?? [];
+    const newResponses = [...oldResponses, response];
+    this.responses = {
+      ...this.responses,
+      [reqId]: newResponses,
+    };
+  },
   setlongitude(longitude) {
     this.longitude = longitude;
   },
