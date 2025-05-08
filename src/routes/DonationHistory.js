@@ -16,7 +16,7 @@ const DonationHistory = observer(function DonationHistory({ model }) {
     <div>
       <header className="mainHeader">
         <div className="tabs">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsOXAO2AE1cxIe6KztXTbGRJXHvPGXcM6LNQ&s" />
+          <img src="/logo5.png" alt="Logo" />
           <Link to="/hospitalProfile">Current requests</Link>
           <Link to="/donationHistory">Donation history</Link>
           <a>About us</a>
