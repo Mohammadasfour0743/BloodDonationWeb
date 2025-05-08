@@ -24,7 +24,7 @@ export function RequestDialogueView({
     const id = /* crypto.randomUUID(); */ nanoid(10);
     const req = {
       id,
-      hospitalName: reactiveModel.username,
+      hospitalName: reactiveModel.name,
       hospitalEmail: reactiveModel.email,
       hospitalId: reactiveModel.id,
       bloodTypes: bloodTypes,
