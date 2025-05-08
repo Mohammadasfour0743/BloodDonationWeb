@@ -135,6 +135,8 @@ export async function getModel(model) {
       if (data.email) model.email = data.email;
       if (data.longitude) model.longitude = data.longitude;
       if (data.latitude) model.latitude = data.latitude;
+      if (data.name) model.name = data.name;
+      if (data.location) model.location = data.location;
     }
     model.ready = true;
   } catch (error) {
@@ -158,6 +160,7 @@ export async function saveRequests(request, model) {
         latitude: request.latitude,
         longitude: request.longitude,
         updatedAt: new Date(),
+        location: request.location,
       },
       { merge: true }
     );
