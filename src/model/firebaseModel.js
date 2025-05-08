@@ -115,7 +115,7 @@ export async function saveToFirebase(model) {
         ...(model.email != null && { email: model.email }),
         ...(model.longitude != null && { longitude: model.longitude }),
         ...(model.latitude != null && { latitude: model.latitude }),
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
       },
       { merge: true }
     );
@@ -165,7 +165,7 @@ export async function saveRequests(request, model) {
         hospitalEmail: request.hospitalEmail,
         latitude: request.latitude,
         longitude: request.longitude,
-        updatedAt: new Date(),
+        updatedAt: new Date().toISOString(),
         location: request.location,
       },
       { merge: true }
