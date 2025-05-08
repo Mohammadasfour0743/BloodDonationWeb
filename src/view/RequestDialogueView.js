@@ -24,7 +24,7 @@ export function RequestDialogueView({
     const id = /* crypto.randomUUID(); */ nanoid(10);
     const req = {
       id,
-      hospitalName: reactiveModel.username,
+      hospitalName: reactiveModel.name,
       hospitalId: reactiveModel.id,
       bloodTypes: bloodTypes,
       urgency: isUrgent,
@@ -33,6 +33,7 @@ export function RequestDialogueView({
       current: true,
       latitude: reactiveModel.latitude,
       longitude: reactiveModel.longitude,
+      location: reactiveModel.location,
     };
     closeEventHandler();
     addRequest(req);

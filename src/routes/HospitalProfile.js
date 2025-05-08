@@ -40,8 +40,8 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
       <div className="hero">
         <div className="hero-content">
           <div>
-            <h1>Hospital Profile</h1>
-            <h2>Located in: {model.location}</h2>
+            <h1>{reactiveModel.name} Profile</h1>
+            <h2>Located in: {reactiveModel.location}</h2>
           </div>
         </div>
       </div>
