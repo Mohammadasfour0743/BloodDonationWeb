@@ -48,6 +48,7 @@ export async function initAuth(model) {
   onAuthStateChanged(auth, async (user) => {
     try {
       if (user) {
+        model.email = user.email;
         model.username = user.email;
         await getModel(model);
         updateLocation(model);
@@ -161,6 +162,7 @@ export async function saveRequests(request, model) {
         description: request.description,
         current: request.current,
         hospitalName: request.hospitalName,
+        hospitalEmail: request.hospitalEmail,
         latitude: request.latitude,
         longitude: request.longitude,
         updatedAt: new Date(),
@@ -193,7 +195,7 @@ export async function fetchRequests(model) {
     const querySnapshot = await getDocs(collection(db, REQUESTS_COLLECTION));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.username);
+    const filteredDocs = docs.filter((doc) => doc.hospitalEmail === model.email);
     console.log('Fetched documents:', filteredDocs);
 
     model.setRequests(filteredDocs);
