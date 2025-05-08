@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { saveRequests } from '../model/firebaseModel';
 import { sendNotifications } from '../model/notifications.js';
+import {nanoid} from "nanoid" ;
+// do npm install nanoid first
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
@@ -19,7 +21,7 @@ export function RequestDialogueView({
   const [amount, setAmount] = useState(1);
 
   function submitForm() {
-    const id = crypto.randomUUID();
+    const id = /* crypto.randomUUID(); */ nanoid(10);
     const req = {
       id,
       hospitalName: reactiveModel.username,
