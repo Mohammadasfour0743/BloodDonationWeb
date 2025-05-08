@@ -536,13 +536,12 @@ body.no-scroll {
   justify-content: center;
   align-items: center;
   background-color: #f7f7f7;
-  width: 1300px;
   height: 700px;
   padding: 70px 100px;
 }
 
 .login-content {
-  width: 90%;
+  width: 1300px;
   height: 100%;
   display: flex;
   flex-direction: row;
