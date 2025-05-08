@@ -1,4 +1,5 @@
 import { FaRegCircleUser } from 'react-icons/fa6';
+import { FiLock } from "react-icons/fi";
 import { Popup } from '../presenter/PopUp';
 
 export function LoginFormView({ error, email, password, setEmail, setPassword, loginFunction }) {
@@ -6,9 +7,9 @@ export function LoginFormView({ error, email, password, setEmail, setPassword, l
     <div className="login-container">
       <div className="login-content">
         <div className="login-image">
-          <h1 className="login-title">
+          {/* <h1 className="login-title">
             Blood <span>Share</span>
-          </h1>
+          </h1> */}
         </div>
         <form
           className="login-form"
@@ -32,7 +33,7 @@ export function LoginFormView({ error, email, password, setEmail, setPassword, l
             />
           </div>
           <div className="login-input-container">
-            <FaRegCircleUser size={22} />
+            <FiLock size={25} />
             <input
               className="login-input"
               value={password}
@@ -51,7 +52,7 @@ export function LoginFormView({ error, email, password, setEmail, setPassword, l
           </button>
           <div className="login-account">
             <p>
-              You are a hospital and do not have an account? You are missing out on blood!!! <Popup />
+              If you are a hospital, <Popup /> through this form to get donors connected to Blood Share
             </p>
           </div>
         </form>
