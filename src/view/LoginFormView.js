@@ -52,7 +52,7 @@ export function LoginFormView({ error, email, password, setEmail, setPassword, l
           </button>
           <div className="login-account">
             <p>
-              You are a hospital and do not have an account? You are missing out on blood!!! <Popup />
+              If you are a hospital, <Popup /> through this form to get donors connected to Blood Share
             </p>
           </div>
         </form>
