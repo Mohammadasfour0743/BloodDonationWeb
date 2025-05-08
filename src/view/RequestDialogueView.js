@@ -35,7 +35,7 @@ export function RequestDialogueView({
       latitude: reactiveModel.latitude,
       longitude: reactiveModel.longitude,
       location: reactiveModel.location,
-      updatedAt: new Date().toString(),
+      updatedAt: new Date().toISOString(),
     };
     closeEventHandler();
     addRequest(req);
