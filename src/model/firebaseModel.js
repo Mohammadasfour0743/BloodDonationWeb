@@ -1,5 +1,17 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, onSnapshot, query, where, writeBatch } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  setDoc,
+  updateDoc,
+  onSnapshot,
+  query,
+  where,
+  writeBatch,
+} from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -164,6 +176,7 @@ export async function saveRequests(request, model) {
         current: request.current,
         hospitalName: request.hospitalName,
         hospitalEmail: request.hospitalEmail,
+        phoneNumber: request.phoneNumber,
         latitude: request.latitude,
         longitude: request.longitude,
         updatedAt: new Date().toISOString(),
@@ -204,7 +217,7 @@ export async function fetchRequests(model) {
   } catch (error) {
     console.error('Error fetching request:', error);
   } finally {
-    module.ready = true;
+    model.ready = true;
   }
 }
 
@@ -214,10 +227,10 @@ export async function updateEmailForReq(model) {
     const q = query(reqref, where('hospitalName', '==', model.name));
     const querySnapshot = await getDocs(q);
     const batch = writeBatch(db);
-    
+
     querySnapshot.forEach((document) => {
       const docRef = doc(db, REQUESTS_COLLECTION, document.id);
-      batch.update(docRef, { hospitalEmail: model.email });
+      batch.update(docRef, { hospitalEmail: model.email, phoneNumber: model.phone });
     });
 
     await batch.commit();
