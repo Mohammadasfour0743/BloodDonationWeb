@@ -3,7 +3,7 @@ import { RequestDialogueView } from '../view/RequestDialogueView';
 import { observer } from 'mobx-react-lite';
 import { EditDialogueButtonView } from '../view/EditDialogueButtonView';
 import { EditDialogueView } from '../view/EditDialogueView';
-import { saveToFirebase } from '../model/firebaseModel';
+import { saveToFirebase, updateEmailForReq } from '../model/firebaseModel';
 
 export const EditDialogue = observer(function EditDialogue({ model }) {
   const [dialogueOpen, setDialogueOpen] = useState(false);
@@ -19,6 +19,7 @@ export const EditDialogue = observer(function EditDialogue({ model }) {
     model.setEmail(email);
     model.setPhone(phone);
     saveToFirebase(model);
+    updateEmailForReq(model);
     setDialogueOpen(false);
   }
 
