@@ -68,7 +68,23 @@ export function MobileCreateRequestForm({
     <Drawer>
       <DrawerTrigger className="mobile-sign-up-button">
         <button className="requestDialogueButton">
-          <CiCirclePlus size={80} color="black" />
+          <div className="relative">
+            {' '}
+            <CiCirclePlus size={80} color="black" />
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                right: '50%',
+                transform: 'translate(50%, -50%)',
+                backgroundColor: 'white',
+                width: 63,
+                height: 63,
+                zIndex: -1,
+                borderRadius: 50,
+              }}
+            ></div>
+          </div>
         </button>
       </DrawerTrigger>
       <DrawerContent>
@@ -77,14 +93,7 @@ export function MobileCreateRequestForm({
           <DrawerDescription>Please fill in the form below to request a donation.</DrawerDescription>
         </DrawerHeader>
         <div className="mobile-registration">
-          <div className="mobile-registration-input">
-            <label>Name</label>
-            <input type="text" disabled={true} value={hospitalName} />
-          </div>
-          <div className="mobile-registration-input">
-            <label>Location</label>
-            <input type="text" disabled={true} value={hospitalLocation} />
-          </div>
+          <p style={{ fontWeight: 'bold', fontSize: 17, marginTop: 15 }}>Hospital Details</p>
           <div className="mobile-registration-input">
             <label>Email</label>
             <input type="text" disabled={true} value={hospitalEmail} />
