@@ -1,6 +1,6 @@
 import { useIsMobile } from '../hooks/useIsMobile';
 
-export function DonationHistoryTableView({ requests }) {
+export function DonationHistoryTableView({ requests, getresponses }) {
   const isMobile = useIsMobile();
 
   function UrgentBox() {
