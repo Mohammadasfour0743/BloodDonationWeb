@@ -16,20 +16,20 @@ import { CiCirclePlus } from 'react-icons/ci';
 
 const options = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
-export function MobileCreateRequestForm({
-  closeEventHandler,
-  addRequest,
-  hospitalName,
-  hospitalLocation,
-  hospitalEmail,
-  reactiveModel,
-}) {
+export function MobileCreateRequestForm({ addRequest, hospitalEmail, reactiveModel }) {
+  const [error, setError] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   const [bloodTypes, setBloodTypes] = useState([]);
   const [isUrgent, setUrgent] = useState(false);
   const [notes, setNotes] = useState('');
   const [amount, setAmount] = useState(1);
 
   function submitForm() {
+    setError('');
+    if (bloodTypes.length === 0) {
+      setError('Please select at least one blood type');
+      return;
+    }
     const id = /* crypto.randomUUID(); */ nanoid(10);
     const req = {
       id,
@@ -46,10 +46,10 @@ export function MobileCreateRequestForm({
       location: reactiveModel.location,
       updatedAt: new Date().toISOString(),
     };
-    closeEventHandler();
     addRequest(req);
     saveRequests(req);
     sendNotifications(id);
+    setIsOpen(false);
   }
 
   function toggleBloodType(option) {
@@ -65,7 +65,7 @@ export function MobileCreateRequestForm({
   }
 
   return (
-    <Drawer>
+    <Drawer open={isOpen} onOpenChange={setIsOpen}>
       <DrawerTrigger className="mobile-sign-up-button">
         <button className="requestDialogueButton">
           <div className="relative">
@@ -103,6 +103,7 @@ export function MobileCreateRequestForm({
             <input type="text" disabled={true} value="+46 11 111 111" />
           </div>
           <p style={{ fontWeight: 'bold', fontSize: 17, marginTop: 15 }}>Request Details</p>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <div className="mobile-registration-input">
             <label>Blood type</label>
             <div className="radio-group">
@@ -148,7 +149,9 @@ export function MobileCreateRequestForm({
           </div>
         </div>
         <DrawerFooter className={'mobile-registration-footer'}>
-          <button className="mobile-registration-footer">Submit</button>
+          <button onClick={submitForm} className="mobile-registration-footer">
+            Submit
+          </button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
