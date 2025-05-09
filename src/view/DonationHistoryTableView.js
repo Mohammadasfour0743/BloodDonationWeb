@@ -1,4 +1,8 @@
+import { useIsMobile } from '../hooks/useIsMobile';
+
 export function DonationHistoryTableView({ requests, getresponses }) {
+  const isMobile = useIsMobile();
+
   function UrgentBox() {
     return (
       <div className="donation-history-col3">
@@ -8,13 +12,15 @@ export function DonationHistoryTableView({ requests, getresponses }) {
   }
 
   function renderRequestRow(request) {
-    const date= new Date(request.updatedAt)
+    const date = new Date(request.updatedAt);
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const dateNumber = String(date.getDate()).padStart(2, '0');
 
     return (
       <div className="donation-history-table-row">
-        <h3 className="donation-history-col1 donation-item-id">{request.id.substr(0, 13)}...</h3>
+        <h3 className="donation-history-col1 donation-item-id">
+          {!isMobile ? request.id.substr(0, 13) : request.id.substr(0, 5)}...
+        </h3>
         <h3 className="donation-history-col2">{request.bloodTypes.join(', ')}</h3>
         {request.urgency ? (
           <UrgentBox />

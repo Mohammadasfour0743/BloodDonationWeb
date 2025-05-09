@@ -45,12 +45,12 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
         </div>
       </div>
       <div className="contact">
-        <p>Contact</p>
+        <p className="contact-text">Contact</p>
         <div className="separator" />
-        <MdOutlineMailOutline style={{ marginRight: -12 }} />
+        <MdOutlineMailOutline className="contact-icon" />
         <p>{model.email}</p>
         <div className="separator" />
-        <MdOutlineLocalPhone style={{ marginRight: -12 }} />
+        <MdOutlineLocalPhone className="contact-icon" />
         <p>{model.phone}</p>
 
         <EditDialogue model={model} />

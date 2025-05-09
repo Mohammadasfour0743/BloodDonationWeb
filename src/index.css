@@ -388,6 +388,31 @@ body.no-scroll {
   font-size: 18px;
 }
 
+.contact-icon {
+  margin-right: -12px;
+}
+
+@media screen and (max-width: 768px) {
+  .contact {
+    font-size: 16px;
+    gap: 10px; 
+    flex-wrap: wrap;
+  }
+
+  .contact-text {
+    display: none;
+  }
+  .contact-icon {
+    margin-right: -6px;
+  }
+  .hero-content {
+    padding: 0 20px;
+  }
+  .hero-content h1 {
+    font-size: 32px;
+  }
+}
+
 .contact .separator {
   width: 6px;
   height: 6px;
@@ -409,6 +434,7 @@ body.no-scroll {
   align-items: center;
   gap: 20px;
   margin-top: 50px;
+  padding: 0 50px;
 }
 
 .current-requests h1 {
@@ -828,12 +854,27 @@ body.no-scroll {
   cursor: pointer
 }
 
+@media screen and (max-width: 768px) {
+  .tabs {
+    gap: 10px;
+  }
+  .tabs a {
+    font-size: 16px;
+  }
+} 
+
 .tabs img {
   width: 50px;
 }
 
 .donation-history-page {
   margin: 0 150px;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-page {
+    margin: 0 20px;
+  }
 }
 
 .donation-history-header {
@@ -859,6 +900,13 @@ body.no-scroll {
   align-items: center;
   flex-direction: row;
   gap: 10px;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-table-header {
+    font-size: 12px;
+  }
 }
 
 .donation-history-table-row {
@@ -893,6 +941,12 @@ body.no-scroll {
 .donation-history-table-row h3 {
   font-size: 16px;
   font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-table-row h3 {
+    font-size: 14px;
+  }
 }
 
 .donation-item-id {
