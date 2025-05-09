@@ -860,6 +860,12 @@ body.no-scroll {
   margin: 0 150px;
 }
 
+@media screen and (max-width: 768px) {
+  .donation-history-page {
+    margin: 0 20px;
+  }
+}
+
 .donation-history-header {
   padding: 30px 0;
   display: flex;
@@ -883,6 +889,13 @@ body.no-scroll {
   align-items: center;
   flex-direction: row;
   gap: 10px;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-table-header {
+    font-size: 12px;
+  }
 }
 
 .donation-history-table-row {
@@ -917,6 +930,12 @@ body.no-scroll {
 .donation-history-table-row h3 {
   font-size: 16px;
   font-weight: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-table-row h3 {
+    font-size: 14px;
+  }
 }
 
 .donation-item-id {
