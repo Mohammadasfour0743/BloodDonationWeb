@@ -1,4 +1,8 @@
-export function DonationHistoryTableView({ requests }) {
+import { useIsMobile } from '../hooks/useIsMobile';
+
+export function DonationHistoryTableView({ requests, getresponses }) {
+  const isMobile = useIsMobile();
+
   function UrgentBox() {
     return (
       <div className="donation-history-col3">
@@ -8,17 +12,23 @@ export function DonationHistoryTableView({ requests }) {
   }
 
   function renderRequestRow(request) {
+    const date = new Date(request.updatedAt);
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const dateNumber = String(date.getDate()).padStart(2, '0');
+
     return (
       <div className="donation-history-table-row">
-        <h3 className="donation-history-col1 donation-item-id">{request.id.substr(0, 13)}...</h3>
-        <h3 className="donation-history-col2">{request.bloodTypes.reduce((acc, curr) => curr + ' ' + acc, '')}</h3>
+        <h3 className="donation-history-col1 donation-item-id">
+          {!isMobile ? request.id.substr(0, 13) : request.id.substr(0, 5)}...
+        </h3>
+        <h3 className="donation-history-col2">{request.bloodTypes.join(', ')}</h3>
         {request.urgency ? (
           <UrgentBox />
         ) : (
           <h3 className="donation-history-col3 donation-history-type-text">Non-urgent</h3>
         )}
-        <h3 className="donation-history-col4">{'27/03/2025'}</h3>
-        <h3 className="donation-history-col5">{'2'} responses</h3>
+        <h3 className="donation-history-col4">{date.getFullYear() + '/' + month + '/' + dateNumber}</h3>
+        <h3 className="donation-history-col5">{getresponses(request.id).length} responses</h3>
       </div>
     );
   }
