@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, setDoc, updateDoc, onSnapshot, query, where, writeBatch } from 'firebase/firestore';
 import { firebaseConfig } from '../firebaseConfig.js';
 import {
   getAuth,
@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { model } from './model.js';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -207,35 +208,24 @@ export async function fetchRequests(model) {
   }
 }
 
-/* 
-amount 1 (number)
+export async function updateEmailForReq(model) {
+  try {
+    const reqref = collection(db, REQUESTS_COLLECTION);
+    const q = query(reqref, where('hospitalName', '==', model.name));
+    const querySnapshot = await getDocs(q);
+    const batch = writeBatch(db);
+    
+    querySnapshot.forEach((document) => {
+      const docRef = doc(db, REQUESTS_COLLECTION, document.id);
+      batch.update(docRef, { hospitalEmail: model.email });
+    });
 
-bloodTypes (array)
-
-0 "AB+" (string)
-
-1 "AB-" (string)
-
-current true (boolean)
-
-description "2w456789" (string)
-
-hospitalEmail "test2@a.com" (string)
-
-hospitalName "test2" (string)
-
-id "vxDmg98TME" (string)
-
-latitude 59.3575999 (number)
-
-location "Kistagången 16" (string)
-
-longitude 18.0933241 (number)
-
-updatedAt "2025-05-09T06:28:39.770Z" (string)
-
-urgency true */
-
+    await batch.commit();
+    console.log('works');
+  } catch (error) {
+    console.log('error', error);
+  }
+}
 export async function fetchResponses(model) {
   model.ready = false;
   try {
