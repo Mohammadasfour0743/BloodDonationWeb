@@ -15,12 +15,18 @@ export function RequestDialogueView({
   hospitalEmail,
   reactiveModel,
 }) {
+  const [error, setError] = useState('');
   const [bloodTypes, setBloodTypes] = useState([]);
   const [isUrgent, setUrgent] = useState(false);
   const [notes, setNotes] = useState('');
   const [amount, setAmount] = useState(1);
 
   function submitForm() {
+    setError('');
+    if (bloodTypes.length === 0) {
+      setError('Please select at least one blood type');
+      return;
+    }
     const id = /* crypto.randomUUID(); */ nanoid(10);
     const req = {
       id,
@@ -89,6 +95,11 @@ export function RequestDialogueView({
           <div className="row inputRow subheaderContainer">
             <h2 className="subheader">Request Details</h2>
           </div>
+          {error && (
+            <div className="row inputrow">
+              <p style={{ color: 'red' }}>{error}</p>
+            </div>
+          )}
           <div className="row inputRow">
             <label>Blood type</label>
           </div>
