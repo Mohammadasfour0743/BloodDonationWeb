@@ -195,7 +195,7 @@ export async function fetchRequests(model) {
     const querySnapshot = await getDocs(collection(db, REQUESTS_COLLECTION));
     const docs = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
-    const filteredDocs = docs.filter((doc) => doc.hospitalEmail === model.email);
+    const filteredDocs = docs.filter((doc) => doc.hospitalName === model.name);
     console.log('Fetched documents:', filteredDocs);
 
     model.setRequests(filteredDocs);
@@ -206,6 +206,35 @@ export async function fetchRequests(model) {
     module.ready = true;
   }
 }
+
+/* 
+amount 1 (number)
+
+bloodTypes (array)
+
+0 "AB+" (string)
+
+1 "AB-" (string)
+
+current true (boolean)
+
+description "2w456789" (string)
+
+hospitalEmail "test2@a.com" (string)
+
+hospitalName "test2" (string)
+
+id "vxDmg98TME" (string)
+
+latitude 59.3575999 (number)
+
+location "Kistagången 16" (string)
+
+longitude 18.0933241 (number)
+
+updatedAt "2025-05-09T06:28:39.770Z" (string)
+
+urgency true */
 
 export async function fetchResponses(model) {
   model.ready = false;
