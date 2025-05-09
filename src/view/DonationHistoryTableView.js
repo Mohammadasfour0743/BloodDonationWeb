@@ -28,7 +28,7 @@ export function DonationHistoryTableView({ requests, getresponses }) {
           <h3 className="donation-history-col3 donation-history-type-text">Non-urgent</h3>
         )}
         <h3 className="donation-history-col4">{date.getFullYear() + '/' + month + '/' + dateNumber}</h3>
-        <h3 className="donation-history-col5">{getresponses(request.id).length} responses</h3>
+        <h3 className="donation-history-col5">{getresponses(request.id).length} replies</h3>
       </div>
     );
   }
@@ -43,8 +43,8 @@ export function DonationHistoryTableView({ requests, getresponses }) {
           <h3 className="donation-history-col1">ID</h3>
           <h3 className="donation-history-col2">Blood Type(s)</h3>
           <h3 className="donation-history-col3">Type</h3>
-          <h3 className="donation-history-col4">Date deleted</h3>
-          <h3 className="donation-history-col5">Response count</h3>
+          <h3 className="donation-history-col4">Deleted</h3>
+          <h3 className="donation-history-col5">Replies</h3>
         </div>
         <div className="donation-history-body">{requests.map(renderRequestRow)}</div>
       </div>
