@@ -643,11 +643,11 @@ body.no-scroll {
   width: fit-content;
   border-radius: 8px;
   font-size: 20px;
+  cursor:pointer;
 }
 
 .login-button:hover {
-  background-color: #e7ca70;
-  cursor: pointer;
+  opacity: 70%;
   transition: 0.3s;
 }
 
@@ -718,12 +718,17 @@ body.no-scroll {
 
 .blop {
   background-color: #D9D9D9;
-  border-radius: 13px;
+  border-radius: 7px;
   width: 100%;
+  min-height: 30px;
   outline: none;
   border: none;
-  padding: 10px;
+  padding: 5px 10px 10px 10px;
   resize: none;
+  display: block;
+  line-height: 1.5;
+  overflow-y: hidden;
+  text-align:justify;
 }
 
 .verification-title{
@@ -736,12 +741,18 @@ body.no-scroll {
 }
 
 .submit-form{
-  background-color: #B47F7F;
+  background-color: #9a4040;
   padding: 14px 14px;
   text-align: center;
   color: white;
   border-radius: 12px;
   font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-form:hover{
+  background-color: #b04d4d;
+  transition: 0.3s;
 }
 
 .email-phone{
@@ -761,7 +772,7 @@ body.no-scroll {
   opacity: 40%;
 }
 
-.popup-container {
+/* .popup-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -769,7 +780,7 @@ body.no-scroll {
   transform: translate(-50%, -50%);
   background-color: white;
   border-radius: 12px;
-}
+} */
 
 .popup-content {
   display: flex;
@@ -789,7 +800,7 @@ body.no-scroll {
   z-index: 9;
 }
 
-.blop {
+/*.blop {
   background-color: #D9D9D9;
   border-radius: 13px;
   width: 100%;
@@ -797,7 +808,7 @@ body.no-scroll {
   border: none;
   padding: 10px;
   resize: none;
-}
+}*/
 
 .verification-title{
   color:#780000;
@@ -808,14 +819,14 @@ body.no-scroll {
   margin-bottom: 10px;
 }
 
-.submit-form{
+/* .submit-form{
   background-color: #B47F7F;
   padding: 14px 14px;
   text-align: center;
   color: white;
   border-radius: 12px;
   font-size: 16px;
-}
+} */
 
 .email-phone{
   display: flex;

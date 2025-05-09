@@ -33,8 +33,8 @@ export function PopUpView({ closeEventHandler }) {
           <h1 className="verification-title">Registration form</h1>
           <p>Once the account of the hospital/blood bank is verified, you’ll get access to Blood Share.</p>
           <div className="note-margin">
-            <h2>Note!!!</h2>
-            <p>If you are a hospital without a blood bank you cannot use Blood Share</p>
+            <h2>Note!</h2>
+            <p>If you are a hospital without a blood bank you cannot use Blood Share as a blood bank is needed to regulate blood donations</p>
           </div>
 
           <label>Enter the name of blood bank you represent</label>
