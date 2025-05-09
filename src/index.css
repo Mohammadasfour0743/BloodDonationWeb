@@ -484,14 +484,32 @@ body.no-scroll {
   text-transform: uppercase;
 }
 
+@media screen and (max-width: 768px) {
+  .current-request-item h2 {
+    font-size: 15px;
+  }
+}
+
 .current-request-item .urgency {
   font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .current-request-item .urgency {
+    font-size: 14px;
+  }
 }
 
 .current-request-item .id {
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .current-request-item .id {
+    font-size: 14px;
+  }
 }
 
 .current-requests button {
@@ -546,6 +564,12 @@ body.no-scroll {
   padding: 6px;
 }
 
+@media screen and (max-width: 768px) {
+  .current-request-item .responses {
+    font-size: 14px;
+  }
+}
+
 .current-request-item .urgent-box {
   padding: 6px;
   font-size: 16px;
@@ -554,6 +578,12 @@ body.no-scroll {
   border-radius: 5px;
   text-transform: uppercase;
   background-color: #9a4040;
+}
+
+@media screen and (max-width: 768px) {
+  .current-request-item .urgent-box {
+    font-size: 14px;
+  }
 }
 
 .login-container {
@@ -859,12 +889,18 @@ body.no-scroll {
     gap: 10px;
   }
   .tabs a {
-    font-size: 16px;
+    font-size: 14px;
   }
 } 
 
 .tabs img {
   width: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  .tabs img {
+    width: 30px;
+  }
 }
 
 .donation-history-page {
@@ -916,7 +952,9 @@ body.no-scroll {
   flex-direction: row;
   align-items: center;
   border-top: 2px solid #8A8A8A;
+  
 }
+
 
 .donation-history-col1 {
   width: 18%;
@@ -945,7 +983,7 @@ body.no-scroll {
 
 @media screen and (max-width: 768px) {
   .donation-history-table-row h3 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 
@@ -958,6 +996,12 @@ body.no-scroll {
   background-color: #E4D2D2;
   width: fit-content;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .donation-history-urgent-box {
+    padding: 5px 10px !important;
+  }
 }
 
 .donation-history-type-text {

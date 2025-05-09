@@ -30,6 +30,7 @@ export function RequestDialogueView({
       bloodTypes: bloodTypes,
       urgency: isUrgent,
       description: notes,
+      phoneNumber: reactiveModel.phone,
       amount,
       current: true,
       latitude: reactiveModel.latitude,
