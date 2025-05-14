@@ -106,13 +106,21 @@ export function RequestDialogueView({
           </div>
           <div className="radio-group">
             {options.map((option, index) => (
-              <label className="radio-option" key={index}>
+              <label
+                className="radio-option"
+                key={index}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  toggleBloodType(option);
+                }}
+              >
                 <input
                   type="radio"
                   name={'customRadio' + index}
                   value={option}
                   checked={bloodTypes.includes(option)}
-                  onChange={() => toggleBloodType(option)}
+                  onClick={(e) => e.preventDefault()}
                 />
                 <span className="custom-radio"></span>
                 {option}

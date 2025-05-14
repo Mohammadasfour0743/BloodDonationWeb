@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -53,19 +53,34 @@ export function MobileCreateRequestForm({ addRequest, hospitalEmail, reactiveMod
   }
 
   function toggleBloodType(option) {
+    console.log('toggleBloodType called with:', option);
     setBloodTypes((prev) => {
       if (prev.includes(option)) {
-        console.log(prev.filter((el) => el !== option));
+        console.log('Removing:', option);
         return prev.filter((el) => el !== option);
       } else {
-        console.log([...prev, option]);
+        console.log('Adding:', option);
         return [...prev, option];
       }
     });
   }
 
+  function clearForm() {
+    setBloodTypes([]);
+    setUrgent(false);
+    setNotes('');
+    setAmount(1);
+    setError('');
+  }
+
   return (
-    <Drawer open={isOpen} onOpenChange={setIsOpen}>
+    <Drawer
+      open={isOpen}
+      onOpenChange={(val) => {
+        clearForm();
+        setIsOpen(val);
+      }}
+    >
       <DrawerTrigger className="mobile-sign-up-button">
         <button className="requestDialogueButton">
           <div className="relative">
@@ -108,13 +123,21 @@ export function MobileCreateRequestForm({ addRequest, hospitalEmail, reactiveMod
             <label>Blood type</label>
             <div className="radio-group">
               {options.map((option, index) => (
-                <label className="radio-option" key={index}>
+                <label
+                  className="radio-option"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleBloodType(option);
+                  }}
+                  key={index}
+                >
                   <input
                     type="radio"
                     name={'customRadio' + index}
                     value={option}
                     checked={bloodTypes.includes(option)}
-                    onChange={() => toggleBloodType(option)}
+                    onClick={(e) => e.preventDefault()}
                   />
                   <span className="custom-radio"></span>
                   {option}
