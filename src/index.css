@@ -225,8 +225,10 @@ body.no-scroll {
   transform: translate(-50%, -50%);
 }
 
-.radio-option:hover .custom-radio::before {
-  background-color: #ad7878;
+@media screen and (min-width: 768px) {
+  .radio-option:hover .custom-radio::before {
+    background-color: #ad7878;
+  } 
 }
 
 .radio-option input[type='radio']:checked + .custom-radio::before {
