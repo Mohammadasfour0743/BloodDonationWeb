@@ -3,6 +3,7 @@ import { MdLogout } from 'react-icons/md';
 import { Link, Navigate } from 'react-router';
 import { signOutUser } from '../model/firebaseModel';
 import { DonationHistoryTable } from '../presenter/DonationHistoryTable';
+import ContactUsButton from '../view/contactusButton';
 
 const DonationHistory = observer(function DonationHistory({ model }) {
   if (model.username === undefined || !model.ready) {
@@ -30,6 +31,7 @@ const DonationHistory = observer(function DonationHistory({ model }) {
         />
       </header>
       <DonationHistoryTable model={model} />
+      <ContactUsButton></ContactUsButton>
     </div>
   );
 });

@@ -9,6 +9,7 @@ import { Link, Navigate } from 'react-router';
 import { MdLogout } from 'react-icons/md';
 import { signOutUser } from '../model/firebaseModel';
 import { reactiveModel } from '..';
+import ContactUsButton from '../view/contactusButton';
 
 const HospitalProfile = observer(function HospitalProfile({ model }) {
   if (model.username === null) {
@@ -57,6 +58,7 @@ const HospitalProfile = observer(function HospitalProfile({ model }) {
       </div>
       <CurrentRequests model={model} />
       <RequestDialogue model={model} />
+      <ContactUsButton></ContactUsButton>
     </div>
   );
 });
