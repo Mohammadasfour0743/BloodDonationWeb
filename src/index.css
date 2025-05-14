@@ -899,6 +899,7 @@ body.no-scroll {
   color: white;
   text-decoration: none;
   padding: 20px;
+  border-bottom: 1px solid var(--primary-color)
 }
 
 .tabs a:hover {
