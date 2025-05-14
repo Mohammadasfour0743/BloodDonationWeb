@@ -157,6 +157,26 @@ body.no-scroll {
   gap: 10px;
 }
 
+.contactusButton {
+  padding: 15px 15px;
+  background-color: #9a4040;
+  border-radius: 12px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  position: fixed;
+  bottom: 20px; 
+  left: 15px;  
+  z-index: 10; 
+}
+
+.contactusButton:hover{
+  background-color: #b04d4d;
+  transition: 0.3s;
+}
+
 .formInput {
   background-color: #d9d9d9;
   border-radius: 13px;
@@ -879,6 +899,7 @@ body.no-scroll {
   color: white;
   text-decoration: none;
   padding: 20px;
+  border-bottom: 1px solid var(--primary-color)
 }
 
 .tabs a:hover {
