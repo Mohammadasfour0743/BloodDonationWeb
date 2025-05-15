@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -8,8 +9,28 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../../components/drawer';
+import { saveApplicationDetails } from '../../model/firebaseModel';
 
 export function MobileRegistrationForm() {
+  const [feedback, setFeedback] = useState(null);
+  const [formData, setFormData] = useState({
+    bloodBankName: '',
+    hospitalName: '',
+    licenseNumber: '',
+    registrationNumber: '',
+    location: '',
+    contactEmail: '',
+    contactPhone: '',
+  });
+
+  const handleChange = (field) => (e) => {
+    setFormData({ ...formData, [field]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    await saveApplicationDetails(formData);
+    setFeedback('Application submitted successfully');
+  };
   return (
     <Drawer>
       <DrawerTrigger className="mobile-sign-up-button">Sign Up</DrawerTrigger>
@@ -21,37 +42,45 @@ export function MobileRegistrationForm() {
           </DrawerDescription>
         </DrawerHeader>
         <div className="mobile-registration">
+          {feedback && <p style={{ color: 'green' }}>{feedback}</p>}
           <div className="mobile-registration-input">
             <label>Name of the blood bank</label>
-            <input type="text" placeholder="Blood bank name" />
+            <input
+              onChange={handleChange('bloodBankName')}
+              value={formData.bloodBankName}
+              type="text"
+              placeholder="Blood bank name"
+            />
           </div>
           <div className="mobile-registration-input">
             <label>Name of the hospital the blood bank belongs to</label>
-            <input type="text" />
+            <input onChange={handleChange('hospitalName')} value={formData.hospitalName} type="text" />
           </div>
           <div className="mobile-registration-input">
             <label>License number of the blood bank</label>
-            <input type="text" />
+            <input onChange={handleChange('licenseNumber')} value={formData.licenseNumber} type="text" />
           </div>
           <div className="mobile-registration-input">
             <label>Registration number of the hospital (if any)</label>
-            <input type="text" />
+            <input onChange={handleChange('registrationNumber')} value={formData.registrationNumber} type="text" />
           </div>
           <div className="mobile-registration-input">
             <label>Location of the blood bank/hospital</label>
-            <input type="text" />
+            <input onChange={handleChange('location')} value={formData.location} type="text" />
           </div>
           <div className="mobile-registration-input">
             <label>Phone contact</label>
-            <input type="text" />
+            <input onChange={handleChange('contactPhone')} value={formData.contactPhone} type="text" />
           </div>
           <div className="mobile-registration-input">
             <label>Email contact</label>
-            <input type="text" />
+            <input onChange={handleChange('contactEmail')} value={formData.contactEmail} type="text" />
           </div>
         </div>
         <DrawerFooter className={'mobile-registration-footer'}>
-          <button className="mobile-registration-footer">Submit</button>
+          <button onClick={handleSubmit} className="mobile-registration-footer">
+            Submit
+          </button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
