@@ -26,6 +26,7 @@ export function MobileRegistrationForm() {
   const handleChange = (field) => (e) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
+  // random stuff trying to trigger deployment
 
   const handleSubmit = async () => {
     await saveApplicationDetails(formData);
